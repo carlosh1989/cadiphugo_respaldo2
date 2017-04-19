@@ -1,4 +1,5 @@
 <?php 
+set_time_limit(000000000000000000000000);
 require __DIR__ . '/vendor/autoload.php';
 
 $whoops = new \Whoops\Run;
@@ -27,7 +28,7 @@ foreach ($claps as $c)
 		//si es jefe de familia
 		if($c->tipo_f == 1)
 		{
-			$jefe_ubicacion = Jefe::where('cod_municipio',$c->municipio_id)->where('cod_parroquia',$c->parroquia_id)->where('cedula',$c->cedula)->first();
+			$jefe_ubicacion = Jefe::where('cod_municipio',$c->id_municipio)->where('cod_parroquia',$c->id_parroquia)->where('cedula',$c->cedula)->first();
 			
 			//validando m y parroquia de forma global
 			if($jefe_ubicacion)
@@ -40,6 +41,18 @@ foreach ($claps as $c)
 				$c->validado = 1;
 				$c->validado_m = 1;
 				$c->validado_p = 1;
+
+				$id_bodega = $jefe_ubicacion->bodega;
+				//verificar si tiene id_bodega o no
+				if($id_bodega)
+				{
+					//tiene bodega
+				}
+				else
+				{
+					//no tiene bodega
+				}
+
 				$c->save();
 			}
 			else
@@ -53,7 +66,7 @@ foreach ($claps as $c)
 				$c->save();
 
 				//validando municipio
-				$jefe_validado_m = Jefe::where('cod_municipio',$c->municipio_id)->where('cedula',$c->cedula)->first();
+				$jefe_validado_m = Jefe::where('cod_municipio',$c->id_municipio)->where('cedula',$c->cedula)->first();
 				
 				if($jefe_validado_m)
 				{
@@ -77,7 +90,7 @@ foreach ($claps as $c)
 				}
 
 				//validando parroquia
-				$jefe_validado_p = Jefe::where('cod_parroquia',$c->parroquia_id)->where('cedula',$c->cedula)->first();
+				$jefe_validado_p = Jefe::where('cod_parroquia',$c->id_parroquia)->where('cedula',$c->cedula)->first();
 				
 				if($jefe_validado_p)
 				{
@@ -104,7 +117,7 @@ foreach ($claps as $c)
 
 		if($c->tipo_f == 2)
 		{
-			$familia_ubicacion = Familia::where('cod_municipio',$c->municipio_id)->where('cod_parroquia',$c->parroquia_id)->where('cedula',$c->cedula)->first();
+			$familia_ubicacion = Familia::where('cod_municipio',$c->id_municipio)->where('cod_parroquia',$c->id_parroquia)->where('cedula',$c->cedula)->first();
 			
 			//validando m y parroquia de forma global
 			if($familia_ubicacion)
@@ -130,7 +143,7 @@ foreach ($claps as $c)
 				$c->save();
  
 				//validando municipio
-				$familia_validado_m = Jefe::where('cod_municipio',$c->municipio_id)->where('cedula',$c->cedula)->first();
+				$familia_validado_m = Jefe::where('cod_municipio',$c->id_municipio)->where('cedula',$c->cedula)->first();
 				
 				if($familia_validado_m)
 				{
@@ -154,7 +167,7 @@ foreach ($claps as $c)
 				}
 
 				//validando parroquia
-				$familia_validado_p = Jefe::where('cod_parroquia',$c->parroquia_id)->where('cedula',$c->cedula)->first();
+				$familia_validado_p = Jefe::where('cod_parroquia',$c->id_parroquia)->where('cedula',$c->cedula)->first();
 				
 				if($familia_validado_p)
 				{

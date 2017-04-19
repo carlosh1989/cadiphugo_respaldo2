@@ -3,9 +3,7 @@
         "monolog/monolog": "1.0.*",
         "mmucklo/krumo": "^0.5.7",
         "filp/whoops": "^2.1",
-        "illuminate/database": "5.1.8",
-        "mpdf/mpdf": "6.1.x-dev",
-        "dompdf/dompdf": "^0.8.0"
+        "illuminate/database": "5.1.8"
     },
     "autoload": {
         "psr-4": {
