@@ -103,12 +103,14 @@ foreach ($claps as $c)
 			}
 		}
 
+
+		//si es jefe de familia
 		if($c->tipo_f == 2)
 		{
-			$familia_ubicacion = Familia::where('cod_municipio',$c->id_municipio)->where('cod_parroquia',$c->id_parroquia)->where('cedula',$c->cedula)->first();
+			$jefe_ubicacion = Familia::where('cod_municipio',$c->id_municipio)->where('cod_parroquia',$c->id_parroquia)->where('cedula',$c->cedula)->first();
 			
 			//validando m y parroquia de forma global
-			if($familia_ubicacion)
+			if($jefe_ubicacion)
 			{
 				echo "\n";
 				echo "---------------------------------------------------------------------\n";
@@ -129,11 +131,11 @@ foreach ($claps as $c)
 				echo "---------------------------------------------------------------------\n";
 				$c->validado = 0;
 				$c->save();
- 
+
 				//validando municipio
-				$familia_validado_m = Jefe::where('cod_municipio',$c->id_municipio)->where('cedula',$c->cedula)->first();
+				$jefe_validado_m = Familia::where('cod_municipio',$c->id_municipio)->where('cedula',$c->cedula)->first();
 				
-				if($familia_validado_m)
+				if($jefe_validado_m)
 				{
 					echo "\n";
 					echo "---------------------------------------------------------------------\n";
@@ -155,9 +157,9 @@ foreach ($claps as $c)
 				}
 
 				//validando parroquia
-				$familia_validado_p = Jefe::where('cod_parroquia',$c->id_parroquia)->where('cedula',$c->cedula)->first();
+				$jefe_validado_p = Jefe::where('cod_parroquia',$c->id_parroquia)->where('cedula',$c->cedula)->first();
 				
-				if($familia_validado_p)
+				if($jefe_validado_p)
 				{
 					echo "\n";
 					echo "---------------------------------------------------------------------\n";

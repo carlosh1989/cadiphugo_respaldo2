@@ -92,10 +92,11 @@ foreach ($clap_viejo as $clap)
 
  	
 	$comparacionCreate = BodegaComparacion::create([
-	'clap_codigo' => $clap->codigo_clap,
-	'bodega_mayoritaria_id' => $bodega_ultima,
-	'comparacion' => $positivo.":".$negativo,
-	'consolidado' => $porc,
+		'clap_codigo' => $clap->codigo_clap,
+		'bodega_mayoritaria_id' => $bodega_ultima,
+		'comparacion' => $positivo.":".$negativo,
+		'consolidado' => $porc,
+		'integrantes_validos' => $num2,
 	]);
 
 }
