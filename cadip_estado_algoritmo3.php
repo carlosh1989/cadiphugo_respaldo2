@@ -14,6 +14,14 @@ use Models\Jefe;
 new Eloquent();
 //buscando todos los claps de la tabla viejaa
 $clap_viejo = Clap::all();
+
+$clapConteo = Clap::count();
+$num = 0;
+$num2 = 0;
+
+$counter = 0;
+$total = $clapConteo;
+
 $num = 1;
 foreach ($clap_viejo as $clap) 
 {
@@ -38,6 +46,7 @@ foreach ($clap_viejo as $clap)
 	//conteo de integrantes
 	$conteo_integrantes = count($bodegas);
 	$num2 = 0;
+	$num_total = 0;
 	$negativo = 0;
 	$positivo = 0;
 	foreach ($bodegas as $bo) 
@@ -49,7 +58,7 @@ foreach ($clap_viejo as $clap)
 			$clapNum = Clap2::where('clap_codigo', $clap->codigo_clap)->where('id_bodega',$bo)->where('status',1)->get();
 			foreach ($clapNum as $n) 
 			{
-				$n->consolidado = 1;
+				$n->status_consolidado = 1;
 				$n->save();
 			}
 		}
@@ -60,25 +69,35 @@ foreach ($clap_viejo as $clap)
 			$clapNum = Clap2::where('clap_codigo', $clap->codigo_clap)->where('id_bodega',$bo)->where('status',1)->get();
 			foreach ($clapNum as $n) 
 			{
-				$n->consolidado = 0;
+				$n->status_consolidado = 0;
 				$n->save();
 			}
 		}
 		$num2 = $num2 + 1;
 	}
 
+
+ 
+	$total = $num2;
+ 	//$porc = porcentaje($total, $positivo, 2);
+
+	if($positivo != 0)
+	{
+		$porc = round($positivo / $total * 100, 2);
+	}
+	else
+	{
+	    $porc = '0';
+	}
+
+ 	
 	$comparacionCreate = BodegaComparacion::create([
 	'clap_codigo' => $clap->codigo_clap,
 	'bodega_mayoritaria_id' => $bodega_ultima,
 	'comparacion' => $positivo.":".$negativo,
+	'consolidado' => $porc,
 	]);
 
-	echo "---------------------------------------------------------------------\n";	
-	echo "RESULTADO: ".$positivo.":".$negativo."\n";
-	echo "---------------------------------------------------------------------\n";	
-	echo "\n";
-	echo "conteo: ".count($bodegas)."\n";
-	echo "\n";	
 }
 
 echo "---------------------------------------------------------------------\n";	

@@ -41,18 +41,6 @@ foreach ($claps as $c)
 				$c->validado = 1;
 				$c->validado_m = 1;
 				$c->validado_p = 1;
-
-				$id_bodega = $jefe_ubicacion->bodega;
-				//verificar si tiene id_bodega o no
-				if($id_bodega)
-				{
-					//tiene bodega
-				}
-				else
-				{
-					//no tiene bodega
-				}
-
 				$c->save();
 			}
 			else

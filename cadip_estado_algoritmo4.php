@@ -13,10 +13,16 @@ use Models\Familia;
 use Models\Jefe;
 new Eloquent();
 
-//listando a todos los integrantes del clap
-$claps = Clap2::all();
-
-foreach ($claps as $key => $c) 
-{
-	
+function porcentaje($total, $parte, $redondear = 2) {
+    return round($parte / $total * 100, $redondear);
 }
+ 
+$n1 = 255;
+$n2 = 133;
+$n3 = 87;
+ 
+$total = $n1+$n2+$n3;
+ 
+echo "$n1 es el " . porcentaje($total, $n1, 2) . "% de $total <br>";
+echo "$n2 es el " . porcentaje($total, $n2, 2) . "% de $total <br>";
+echo "$n3 es el " . porcentaje($total, $n3, 2) . "% de $total <br>";  
