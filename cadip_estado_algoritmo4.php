@@ -27,7 +27,6 @@ foreach ($bodegas as $bo)
 		{
 			foreach ($clap as $c) 
 			{
-				$automatico = $automatico + 1;
 				$c->id_bodega = $bo->bodega_mayoritaria_id;
 				$c->status_consolidado = 1;
 				$c->save();
@@ -40,7 +39,6 @@ foreach ($bodegas as $bo)
 		{
 			foreach ($clap as $c) 
 			{
-				$manual = $manual + 1;
 				$c->status_consolidado = 0;
 				$c->save();
 				echo "---------------------------------------------------------------------\n";	
@@ -61,6 +59,3 @@ foreach ($bodegas as $bo)
 	}
 }
 
-echo 'actualizado automatico: '.$automatico;
-echo '<hr>';
-echo 'actualizado manual: '.$manual;
