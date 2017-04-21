@@ -157,7 +157,7 @@ foreach ($claps as $c)
 				}
 
 				//validando parroquia
-				$jefe_validado_p = Jefe::where('cod_parroquia',$c->id_parroquia)->where('cedula',$c->cedula)->first();
+				$jefe_validado_p = Familia::where('cod_parroquia',$c->id_parroquia)->where('cedula',$c->cedula)->first();
 				
 				if($jefe_validado_p)
 				{
