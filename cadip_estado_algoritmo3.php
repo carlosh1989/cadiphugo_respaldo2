@@ -30,18 +30,25 @@ foreach ($clap_viejo as $clap)
 	$bodegas2 = array();
 	
 	foreach($clapnuevo as $n)
-	{																					
-		$bo = array($n->id_bodega);
-		$bodegas = array_merge($bodegas,$bo);
+	{				
+	    $json_decoded = json_decode($n);
+	    $bodegas[] = array('id' => $json_decoded->id_bodega);				
 	}
 
+
+
 	//filtra los campos vacios 
-	$bodegas = array_filter($bodegas);
+	//$bodegas = array_filter($bodegas);
+
+	//pasa array de dos dimensiones a una dimension 
+	$bodegas = array_column($bodegas, 'id');
+
 	//se ordena desde el que menos coincide hasta el que mas se repite
 	uasort($bodegas, "strcmp");
 	//usort($bodegas, "strcmp");
-	$bodega_ultima = array_pop($bodegas);
+	$bodega_ultima = end($bodegas);
 	//$bodegasID  = array_column($bodegas2,'bodega_id');
+
 	var_dump($bodegas);	
 	//conteo de integrantes
 	$conteo_integrantes = count($bodegas);
@@ -58,7 +65,7 @@ foreach ($clap_viejo as $clap)
 			$clapNum = Clap2::where('clap_codigo', $clap->codigo_clap)->where('id_bodega',$bo)->where('status',1)->get();
 			foreach ($clapNum as $n) 
 			{
-				$n->status_consolidado = 1;
+				$n->validado_b = 1;
 				$n->save();
 			}
 		}
@@ -69,7 +76,7 @@ foreach ($clap_viejo as $clap)
 			$clapNum = Clap2::where('clap_codigo', $clap->codigo_clap)->where('id_bodega',$bo)->where('status',1)->get();
 			foreach ($clapNum as $n) 
 			{
-				$n->status_consolidado = 0;
+				$n->validado_b = 0;
 				$n->save();
 			}
 		}
