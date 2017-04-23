@@ -30,18 +30,16 @@ foreach ($clap_viejo as $clap)
 	$bodegas2 = array();
 	
 	foreach($clapnuevo as $n)
-	{				
-	    $json_decoded = json_decode($n);
-	    $bodegas[] = array('id' => $json_decoded->id_bodega);				
+	{																					
+		$bo = array($n->id_bodega);
+		$bodegas = array_merge($bodegas,$bo);
 	}
 
-
-
 	//filtra los campos vacios 
-	//$bodegas = array_filter($bodegas);
+	$bodegas = array_filter($bodegas);
 
 	//pasa array de dos dimensiones a una dimension 
-	$bodegas = array_column($bodegas, 'id');
+	//$bodegas = array_column($bodegas, 'id');
 
 	//se ordena desde el que menos coincide hasta el que mas se repite
 	uasort($bodegas, "strcmp");
@@ -62,29 +60,15 @@ foreach ($clap_viejo as $clap)
 		{
 			echo "es igual el array: ".$num2."\n";
 			$positivo = $positivo + 1;
-			$clapNum = Clap2::where('clap_codigo', $clap->codigo_clap)->where('id_bodega',$bo)->where('status',1)->get();
-			foreach ($clapNum as $n) 
-			{
-				$n->validado_b = 1;
-				$n->save();
-			}
 		}
 		else
 		{
 			echo "no es igual a: ".$num2."\n";
 			$negativo = $negativo + 1;
-			$clapNum = Clap2::where('clap_codigo', $clap->codigo_clap)->where('id_bodega',$bo)->where('status',1)->get();
-			foreach ($clapNum as $n) 
-			{
-				$n->validado_b = 0;
-				$n->save();
-			}
 		}
 		$num2 = $num2 + 1;
 	}
 
-
- 
 	$total = $num2;
  	//$porc = porcentaje($total, $positivo, 2);
 
