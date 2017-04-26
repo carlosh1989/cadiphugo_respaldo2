@@ -1,5 +1,5 @@
 <?php 
-set_time_limit(000000000000000000000000);
+set_time_limit(0);
 require __DIR__ . '/vendor/autoload.php';
 
 $whoops = new \Whoops\Run;
@@ -89,6 +89,32 @@ foreach ($claps as $clap)
 				echo "\033[32m -> INTEGRANTE: ".$clap->nombre_comunidad." \033[0m";
 				echo "\n";
 			}
+			else
+			{
+				//Guardando en la tabla a integrante	
+				$clapAcreate = Clap2::create([
+				'id_estado'   	 => $clap->id_estado,
+				'id_municipio'	 => $clap->id_municipio,
+				'id_parroquia'	 => $clap->id_parroquia,
+				'clap_codigo' 	 => $clap->codigo_clap,
+				'clap_nombre' 	 => $clap->nombre_clap, 
+				'id_bodega'		 => 0,
+				'comunidad'   	 => $clap->comunidad, 
+				'cargo_id'       => '1',
+				'tipo'        	 => $clap->tipo_comunidad,
+				'cedula'      	 => $clap->l_com_cedula,
+				'nombre_apellido'=> $clap->l_comunidad,
+				'telefono'       => $clap->l_com_telefono,
+				'tipo_f'		=> 0,
+				'status'     	=> 0,
+				'validado'		=> 0,
+				'validado_m' 	=> 0,
+				'validado_p'	=> 0,
+				'validado_b'	=> 0,
+				]);
+				echo "\033[32m -> INTEGRANTE NO ENCONTRADO: ".$clap->nombre_comunidad." \033[0m";
+				echo "\n";
+			}
 		}
 	}
 
@@ -150,12 +176,39 @@ foreach ($claps as $clap)
 				'tipo_f'		=> 2,
 				'status'     	=> 1,
 				'validado'		=> 0,
-			'validado_m' 	=> 0,
+				'validado_m' 	=> 0,
 				'validado_p'	=> 0,
 				'validado_b'	=> 0,
 				
 				]);
 				echo "\033[32m -> INTEGRANTE: ".$clap->nombre_ubch." \033[0m";
+				echo "\n";
+			}
+			else
+			{
+				//Guardando en la tabla a integrante	
+				$clapAcreate = Clap2::create([
+				'id_estado'   	 => $clap->id_estado,
+				'id_municipio'	 => $clap->id_municipio,
+				'id_parroquia'	 => $clap->id_parroquia,
+				'clap_codigo' 	 => $clap->codigo_clap,
+				'clap_nombre' 	 => $clap->nombre_clap, 
+				'id_bodega'		 => 0,
+				'comunidad'   	 => $clap->comunidad, 
+				'cargo_id'       	 => '2',
+				'tipo'        	 => $clap->tipo_ubch,
+				'cedula'      	 => $clap->l_ubch_cedula,
+				'nombre_apellido'=> $clap->l_ubch,
+				'telefono'       => $clap->l_ubch_telefono,
+				'tipo_f'		=> 0,
+				'status'     	=> 0,
+				'validado'		=> 0,
+				'validado_m' 	=> 0,
+				'validado_p'	=> 0,
+				'validado_b'	=> 0,
+				
+				]);
+				echo "\033[32m -> INTEGRANTE NO ENCONTRADO: ".$clap->nombre_ubch." \033[0m";
 				echo "\n";
 			}
 		}
@@ -207,24 +260,51 @@ foreach ($claps as $clap)
 				'id_estado'   	 => $clap->id_estado,
 				'id_municipio'	 => $clap->id_municipio,
 				'id_parroquia'	 => $clap->id_parroquia,
-					'clap_codigo' 	 => $clap->codigo_clap,
-					'clap_nombre' 	 => $clap->nombre_clap, 
-					'id_bodega'		 => $familiar3->bodega,
-					'comunidad'   	 => $clap->comunidad, 
-					'cargo_id'       	 => '3',
-					'tipo'        	 => $clap->tipo_unamujer,
-					'cedula'      	 => $clap->l_unamujer_cedula,
-					'nombre_apellido'=> $clap->l_unamujer,
-					'telefono'       => $clap->l_unamujer_cedula_telefono,
-					'tipo_f'		=> 2,
-					'status'     	=> 1,
-					'validado'		=> 0,
+				'clap_codigo' 	 => $clap->codigo_clap,
+				'clap_nombre' 	 => $clap->nombre_clap, 
+				'id_bodega'		 => $familiar3->bodega,
+				'comunidad'   	 => $clap->comunidad, 
+				'cargo_id'       	 => '3',
+				'tipo'        	 => $clap->tipo_unamujer,
+				'cedula'      	 => $clap->l_unamujer_cedula,
+				'nombre_apellido'=> $clap->l_unamujer,
+				'telefono'       => $clap->l_unamujer_cedula_telefono,
+				'tipo_f'		=> 2,
+				'status'     	=> 1,
+				'validado'		=> 0,
 				'validado_m' 	=> 0,
 				'validado_p'	=> 0,
 				'validado_b'	=> 0,
 				
 				]);
 				echo "\033[32m -> INTEGRANTE: ".$clap->nombre_unamujer." \033[0m";
+				echo "\n";
+			}
+			else
+			{
+				//Guardando en la tabla a integrante	
+				$clapAcreate = Clap2::create([
+				'id_estado'   	 => $clap->id_estado,
+				'id_municipio'	 => $clap->id_municipio,
+				'id_parroquia'	 => $clap->id_parroquia,
+				'clap_codigo' 	 => $clap->codigo_clap,
+				'clap_nombre' 	 => $clap->nombre_clap, 
+				'id_bodega'		 => 0,
+				'comunidad'   	 => $clap->comunidad, 
+				'cargo_id'       => '3',
+				'tipo'        	 => $clap->tipo_unamujer,
+				'cedula'      	 => $clap->l_unamujer_cedula,
+				'nombre_apellido'=> $clap->l_unamujer,
+				'telefono'       => $clap->l_unamujer_cedula_telefono,
+				'tipo_f'		=> 0,
+				'status'     	=> 0,
+				'validado'		=> 0,
+				'validado_m' 	=> 0,
+				'validado_p'	=> 0,
+				'validado_b'	=> 0,
+				
+				]);
+				echo "\033[32m -> INTEGRANTE NO ENCONTRADO: ".$clap->nombre_unamujer." \033[0m";
 				echo "\n";
 			}
 		}
@@ -276,24 +356,51 @@ foreach ($claps as $clap)
 				'id_estado'   	 => $clap->id_estado,
 				'id_municipio'	 => $clap->id_municipio,
 				'id_parroquia'	 => $clap->id_parroquia,
-					'clap_codigo' 	 => $clap->codigo_clap,
-					'clap_nombre' 	 => $clap->nombre_clap, 
-					'id_bodega'		 => $familiar4->bodega,
-					'comunidad'   	 => $clap->comunidad, 
-					'cargo_id'       	 => '4',
-					'tipo'        	 => $clap->tipo_ffm,
-					'cedula'      	 => $clap->l_ffm_cedula,
-					'nombre_apellido'=> $clap->l_ffm,
-					'telefono'       => $clap->l_ffm_telefono,
-					'tipo_f'		=> 2,
-					'status'     	=> 1,
-					'validado'		=> 0,
+				'clap_codigo' 	 => $clap->codigo_clap,
+				'clap_nombre' 	 => $clap->nombre_clap, 
+				'id_bodega'		 => $familiar4->bodega,
+				'comunidad'   	 => $clap->comunidad, 
+				'cargo_id'       	 => '4',
+				'tipo'        	 => $clap->tipo_ffm,
+				'cedula'      	 => $clap->l_ffm_cedula,
+				'nombre_apellido'=> $clap->l_ffm,
+				'telefono'       => $clap->l_ffm_telefono,
+				'tipo_f'		=> 2,
+				'status'     	=> 1,
+				'validado'		=> 0,
 				'validado_m' 	=> 0,
 				'validado_p'	=> 0,
 				'validado_b'	=> 0,
 				
 				]);
 				echo "\033[32m -> INTEGRANTE: ".$clap->l_ffm_telefono." \033[0m";
+				echo "\n";
+			}
+			else
+			{
+				//Guardando en la tabla a integrante	
+				$clapAcreate = Clap2::create([
+				'id_estado'   	 => $clap->id_estado,
+				'id_municipio'	 => $clap->id_municipio,
+				'id_parroquia'	 => $clap->id_parroquia,
+				'clap_codigo' 	 => $clap->codigo_clap,
+				'clap_nombre' 	 => $clap->nombre_clap, 
+				'id_bodega'		 => 0,
+				'comunidad'   	 => $clap->comunidad, 
+				'cargo_id'       => '4',
+				'tipo'        	 => $clap->tipo_ffm,
+				'cedula'      	 => $clap->l_ffm_cedula,
+				'nombre_apellido'=> $clap->l_ffm,
+				'telefono'       => $clap->l_ffm_telefono,
+				'tipo_f'		=> 0,
+				'status'     	=> 0,
+				'validado'		=> 0,
+				'validado_m' 	=> 0,
+				'validado_p'	=> 0,
+				'validado_b'	=> 0,
+				
+				]);
+				echo "\033[32m -> INTEGRANTE NO ENCONTRADO: ".$clap->l_ffm_telefono." \033[0m";
 				echo "\n";
 			}
 		}
@@ -345,24 +452,51 @@ foreach ($claps as $clap)
 				'id_estado'   	 => $clap->id_estado,
 				'id_municipio'	 => $clap->id_municipio,
 				'id_parroquia'	 => $clap->id_parroquia,
-					'clap_codigo' 	 => $clap->codigo_clap,
-					'clap_nombre' 	 => $clap->nombre_clap, 
-					'id_bodega'		 => $familiar5->bodega,
-					'comunidad'   	 => $clap->comunidad, 
-					'cargo_id'       	 => '5',
-					'tipo'        	 => $clap->tipo_ccomunal,
-					'cedula'      	 => $clap->l_ccomunal_cedula,
-					'nombre_apellido'=> $clap->l_ccomunal,
-					'telefono'       => $clap->l_ccomunal_telefono,
-					'tipo_f'		=> 2,
-					'status'     	=> 1,
-									'validado'		=> 0,
+				'clap_codigo' 	 => $clap->codigo_clap,
+				'clap_nombre' 	 => $clap->nombre_clap, 
+				'id_bodega'		 => $familiar5->bodega,
+				'comunidad'   	 => $clap->comunidad, 
+				'cargo_id'       	 => '5',
+				'tipo'        	 => $clap->tipo_ccomunal,
+				'cedula'      	 => $clap->l_ccomunal_cedula,
+				'nombre_apellido'=> $clap->l_ccomunal,
+				'telefono'       => $clap->l_ccomunal_telefono,
+				'tipo_f'		=> 2,
+				'status'     	=> 1,
+				'validado'		=> 0,
 				'validado_m' 	=> 0,
 				'validado_p'	=> 0,
 				'validado_b'	=> 0,
 				
 				]);
 				echo "\033[32m -> INTEGRANTE: ".$clap->nombre_ccomunal." \033[0m";
+				echo "\n";
+			}
+			else
+			{
+				//Guardando en la tabla a integrante	
+				$clapAcreate = Clap2::create([
+				'id_estado'   	 => $clap->id_estado,
+				'id_municipio'	 => $clap->id_municipio,
+				'id_parroquia'	 => $clap->id_parroquia,
+				'clap_codigo' 	 => $clap->codigo_clap,
+				'clap_nombre' 	 => $clap->nombre_clap, 
+				'id_bodega'		 => 0,
+				'comunidad'   	 => $clap->comunidad, 
+				'cargo_id'       	 => '5',
+				'tipo'        	 => $clap->tipo_ccomunal,
+				'cedula'      	 => $clap->l_ccomunal_cedula,
+				'nombre_apellido'=> $clap->l_ccomunal,
+				'telefono'       => $clap->l_ccomunal_telefono,
+				'tipo_f'		=> 0,
+				'status'     	=> 0,
+				'validado'		=> 0,
+				'validado_m' 	=> 0,
+				'validado_p'	=> 0,
+				'validado_b'	=> 0,
+				
+				]);
+				echo "\033[32m -> INTEGRANTE NO ENCONTRADO: ".$clap->nombre_ccomunal." \033[0m";
 				echo "\n";
 			}
 		}
@@ -396,7 +530,7 @@ foreach ($claps as $clap)
 				'telefono'       => $clap->l_milicia_telefono,
 				'tipo_f'		=> 1,
 				'status'     	=> 1,
-'validado'		=> 0,
+				'validado'		=> 0,
 				'validado_m' 	=> 0,
 				'validado_p'	=> 0,
 				'validado_b'	=> 0,
@@ -432,6 +566,33 @@ foreach ($claps as $clap)
 				
 				]);
 				echo "\033[32m -> INTEGRANTE: ".$clap->nombre_milicia." \033[0m";
+				echo "\n";
+			}
+			else
+			{
+				//Guardando en la tabla a integrante	
+				$clapAcreate = Clap2::create([
+				'id_estado'   	 => $clap->id_estado,
+				'id_municipio'	 => $clap->id_municipio,
+				'id_parroquia'	 => $clap->id_parroquia,
+				'clap_codigo' 	 => $clap->codigo_clap,
+				'clap_nombre' 	 => $clap->nombre_clap, 
+				'id_bodega'		 => 0,
+				'comunidad'   	 => $clap->comunidad, 
+				'cargo_id'       => '6',
+				'tipo'        	 => $clap->tipo_milicia,
+				'cedula'      	 => $clap->l_milicia_cedula,
+				'nombre_apellido'=> $clap->l_milicia,
+				'telefono'       => $clap->l_milicia_telefono,
+				'tipo_f'		=> 0,
+				'status'     	=> 0,
+				'validado'		=> 0,
+				'validado_m' 	=> 0,
+				'validado_p'	=> 0,
+				'validado_b'	=> 0,
+				
+				]);
+				echo "\033[32m -> INTEGRANTE NO ENCONTRADO: ".$clap->nombre_milicia." \033[0m";
 				echo "\n";
 			}
 		}

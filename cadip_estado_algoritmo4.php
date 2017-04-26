@@ -21,7 +21,7 @@ $manual = 0;
 foreach ($bodegas as $bo) 
 {
 	$clap = Clap2::where('clap_codigo',$bo->clap_codigo)->get();
-	if ($bo->integrantes_validos >= 4) 
+	if ($bo->integrantes_validos >= 5) 
 	{
 		if($bo->consolidado >= 60)
 		{

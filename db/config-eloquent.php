@@ -11,7 +11,7 @@ class Eloquent {
 	     'host' => 'localhost',
 	     'database' => 'CADIP2',
 	     'username' => 'root',
-	     'password' => '123',
+	     'password' => 'Adm15.',
 	     'charset' => 'utf8',
 	     'collation' => 'utf8_unicode_ci',
 	     'prefix' => '',
