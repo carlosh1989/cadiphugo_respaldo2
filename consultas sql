@@ -1,5 +1,0 @@
-consultas sql
-
-consultas por municipio por clap
-SELECT * FROM `claps` WHERE `municipio_id` = 5 group by `clap_codigo` ASC ORDER BY `clap_codigo` 
-527 clap en el municipio barinas

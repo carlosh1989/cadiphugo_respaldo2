@@ -16,12 +16,12 @@ extract($_POST);
 
 $muni = Municipio::where('id_municipio', $municipio)->first();
 $parro = Parroquia::where('id_parrouia', $parroquia)->first();
-$sector = Sector::where('id',$id)->first();
+$sec = Sector::where('id',$id)->first();
 
-$sector->id_municipio = $municipio;
-$sector->id_parroquia = $parroquia;
-$sector->direccion = $direccion;
-$sector->save();
+$sec->id_municipio = $municipio;
+$sec->id_parroquia = $parroquia;
+$sec->sector = $sector;
+$sec->save();
 
 header("Location: sector_busqueda.php?municipio=".$municipio."&parroquia=".$parroquia.""); /* Redirect browser */
 exit();

@@ -142,7 +142,7 @@ $(document).ready(function(){
  </div>
 
  <div class="form-group">
-   <input style="width: 100%;" name="direccion" type="text" value="<?php echo $sector->direccion ?>">
+   <input style="width: 100%;" name="sector" type="text" value="<?php echo $sector->sector ?>">
  </div>
 
 

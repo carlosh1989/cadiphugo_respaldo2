@@ -236,6 +236,7 @@ return array(
     'Models\\ClapZona' => $baseDir . '/db/models/Zona.php',
     'Models\\ClapsBodegaComparacion' => $baseDir . '/db/models/ClapsBodegaComparacion.php',
     'Models\\Familia' => $baseDir . '/db/models/Familia.php',
+    'Models\\Integrantes' => $baseDir . '/db/models/Integrantes.php',
     'Models\\Jefe' => $baseDir . '/db/models/Jefe.php',
     'Models\\JefeCertificados' => $baseDir . '/db/models/JefeCertificados.php',
     'Models\\JefeHuella' => $baseDir . '/db/models/JefeHuella.php',
