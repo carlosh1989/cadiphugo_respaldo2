@@ -14,5 +14,10 @@ class ClapZona extends Model {
 	{
 		return $this->belongsTo(Sector::class, 'sector_id', 'id');
 	}
+
+	public function integrantes_clap()
+	{
+	    return $this->hasMany(Integrantes::class, 'zona_id', 'id');
+	}
 }
 

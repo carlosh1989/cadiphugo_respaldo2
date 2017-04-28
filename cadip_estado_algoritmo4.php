@@ -28,7 +28,7 @@ foreach ($bodegas as $bo)
 			foreach ($clap as $c) 
 			{
 				$c->id_bodega = $bo->bodega_mayoritaria_id;
-				$c->status_consolidado = 1;
+				$c->validado_b = 1;
 				$c->save();
 				echo "---------------------------------------------------------------------\n";	
 				echo "Automatico clap codigo: ".$c->clap_codigo."\n";
@@ -39,7 +39,7 @@ foreach ($bodegas as $bo)
 		{
 			foreach ($clap as $c) 
 			{
-				$c->status_consolidado = 0;
+				$c->validado_b = 0;
 				$c->save();
 				echo "---------------------------------------------------------------------\n";	
 				echo "Automatico clap codigo: ".$c->clap_codigo."\n";
@@ -51,7 +51,7 @@ foreach ($bodegas as $bo)
 	else
 	{
 		$manual = $manual + 1;
-		$c->status_consolidado = 0;
+		$c->validado_b = 0;
 		$c->save();
 		echo "---------------------------------------------------------------------\n";	
 		echo "MANUAL clap codigo: ".$c->clap_codigo."\n";

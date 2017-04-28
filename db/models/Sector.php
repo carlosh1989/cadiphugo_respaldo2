@@ -26,4 +26,9 @@ class Sector extends Model {
 	{
 		return $this->belongsTo(Parroquia::class, 'id_parroquia', 'id_parrouia');
 	}
+
+	public function sector()
+	{
+		return $this->belongsTo(Sector::class, 'sector_id', 'id');
+	}
 }

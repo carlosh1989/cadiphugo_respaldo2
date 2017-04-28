@@ -41,7 +41,7 @@ $sector  = Sector::where('id', $id)->first();
       </div>
       <h4 class="text-center text-muted"><a class="fa fa-map-marker fa-2x" href=""></a> Zonas CLAPS</h4>
       <hr>
-    <pre><?php echo $muni->nombre_municipio; ?>, <?php echo $parro->nombre_parroquia; ?></pre>
+    <pre><?php echo $muni->nombre_municipio; ?>, <?php echo $parro->nombre_parroquia; ?>, <?php echo $sector->sector ?></pre>
     <hr>
     <form action="sector_guardar.php" method="GET">
       <input type="hidden" name="municipio" value="<?php echo $municipio ?>">
@@ -77,11 +77,9 @@ $sector  = Sector::where('id', $id)->first();
           <td><?php echo $s->cod_cadip ?></td>
           <td><?php echo $s->consolidado ?></td>
           <td>
-            <?php if (isset($s->clap_zona[0])): ?>
-            <a href="zona_clap_busqueda.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $s->id ?>" class="btn btn-primary fa fa-search fa-2x"></a>
-            <?php else: ?>
-            <a href="zona_clap_create.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $s->id ?>" class="btn btn-success fa fa-plus fa-2x"></a>
-            <?php endif ?>
+      
+            <a href="integrantes_clap_busqueda.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&sector_id=<?php echo $s->sector_id ?>&zona_id=<?php echo $s->id ?>" class="btn btn-primary fa fa-search fa-2x"></a>
+        
           </td>
           <td><a class="btn btn-info text-success fa fa-pencil" href="zona_clap_editar.php?id_zona=<?php echo $s->id ?>"></a></td>
           <td><a onclick="return confirm('Esta seguro que quiere borrar Zona CLAP?')" class="btn btn-danger text-danger fa fa-times-circle" href="zona_clap_eliminar.php?zona_id=<?php echo $s->id ?>"></a></td>

@@ -134,22 +134,22 @@ $(document).ready(function(){
 <input type="hidden" name="parroquia" value="<?php echo $parroquia ?>">
 
  <div class="form-group form-group-lg">
-   <input style="width: 100%;" name="nombre_clap" type="text" placeholder="Ingrese nombre de CLAP">
+   <input style="width: 100%;" name="nombre_clap" type="text" placeholder="Ingrese nombre de CLAP" onChange="javascript:this.value=this.value.toUpperCase();">
    <br>
    <br>
- <input style="width: 100%;" name="comunidad" type="text" placeholder="Comunidad">
+ <input style="width: 100%;" name="comunidad" type="text" placeholder="Comunidad" onChange="javascript:this.value=this.value.toUpperCase();">
     <br>
    <br>
- <input style="width: 100%;" name="cod_clap" type="text" placeholder="Codigo de CLAP">
+ <input style="width: 100%;" name="cod_clap" type="text" placeholder="Codigo de CLAP" onChange="javascript:this.value=this.value.toUpperCase();">
     <br>
    <br>
- <input style="width: 100%;" name="cod_bodega" type="text" placeholder="Codigo de Bodega">
+ <input style="width: 100%;" name="cod_bodega" type="text" placeholder="Codigo de Bodega" onChange="javascript:this.value=this.value.toUpperCase();">
      <br>
    <br>
- <input style="width: 100%;" name="cod_cadip" type="text" placeholder="Codigo CADIP">
+ <input style="width: 100%;" name="cod_cadip" type="text" placeholder="Codigo CADIP" onChange="javascript:this.value=this.value.toUpperCase();">
       <br>
    <br>
- <input style="width: 100%;" name="consolidado" type="text" placeholder="Consolidado">
+ <input style="width: 100%;" name="consolidado" type="text" placeholder="Consolidado" onChange="javascript:this.value=this.value.toUpperCase();">
  </div>
 
 
