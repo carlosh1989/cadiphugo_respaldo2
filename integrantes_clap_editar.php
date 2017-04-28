@@ -38,19 +38,61 @@ $integrante = Integrantes::where('id',$id_integrante)->first();
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	</head>
 	<body>
-		<script language="javascript">
-		$(document).ready(function(){
-		$("#parroquiaB").change(function () {
-		$("#parroquiaB option:selected").each(function () {
-		idparroquia = $(this).val();
-		$.post("bodegas.php", { idparroquia:idparroquia }, function(data){
-		$("#bodegaB").html(data);
-		});
-		window.console&&console.log(idparroquia);
-		});
-		})
-		});
-		</script>
+    <!--Import jQuery before materialize.js-->
+    <!-- Compiled and minified JavaScript -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script language="javascript">
+    $(document).ready(function(){
+    $("#municipio").change(function () {
+    $("#municipio option:selected").each(function () {
+    idmunicipio = $(this).val();
+    $.post("parroquias.php", { idmunicipio:idmunicipio }, function(data){
+    $("#parroquia").html(data);
+    });
+    window.console&&console.log(idmunicipio);
+    });
+    })
+    });
+    </script>
+    <script language="javascript">
+    $(document).ready(function(){
+    $("#parroquia").change(function () {
+    $("#parroquia option:selected").each(function () {
+    idparroquia = $(this).val();
+    $.post("bodegas.php", { idparroquia:idparroquia }, function(data){
+    $("#bodega").html(data);
+    });
+    window.console&&console.log(idparroquia);
+    });
+    })
+    });
+    </script>
+    <script language="javascript">
+    $(document).ready(function(){
+    $("#municipioB").change(function () {
+    $("#municipioB option:selected").each(function () {
+    idmunicipio = $(this).val();
+    $.post("parroquias.php", { idmunicipio:idmunicipio }, function(data){
+    $("#parroquiaB").html(data);
+    });
+    window.console&&console.log(idmunicipio);
+    });
+    })
+    });
+    </script>
+    <script language="javascript">
+    $(document).ready(function(){
+    $("#parroquiaB").change(function () {
+    $("#parroquiaB option:selected").each(function () {
+    idparroquia = $(this).val();
+    $.post("bodegas.php", { idparroquia:idparroquia }, function(data){
+    $("#bodegaB").html(data);
+    });
+    window.console&&console.log(idparroquia);
+    });
+    })
+    });
+    </script>
 		<br><br>
 		<br>
 		<div class="tab-content">
@@ -62,19 +104,21 @@ $integrante = Integrantes::where('id',$id_integrante)->first();
 					<h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Editar Integrante CLAP</h4>
 					<br>
 					<pre><?php echo $integrante->sector->municipio->nombre_municipio ?>, <?php echo $integrante->sector->parroquia->nombre_parroquia ?>, SECTOR <?php echo $integrante->sector->sector ?></pre>
-				<form action="integrantes_clap_editar.php" method="GET">
+				<form action="integrantes_clap_editar_guardar.php" method="GET">
 					<div class="form-group form-group-lg">
-						<input type="hidden" name="sector_id" value="<?php echo $integrante->id ?>">
-						<input type="hidden" name="zona_id" value="<?php echo $integrante->id ?>">
-						<input type="hidden" name="municipio" value="<?php echo $integrante->id ?>">
-						<input type="hidden" name="parroquia" value="<?php echo $integrante->id ?>">
+						<input type="hidden" name="integrante_id" value="<?php echo $integrante->id ?>">
+						<input type="hidden" name="sector_id" value="<?php echo $integrante->sector_id ?>">
+						<input type="hidden" name="zona_id" value="<?php echo $integrante->zona_id ?>">
+						<input type="hidden" name="municipio" value="<?php echo $integrante->parroquia ?>">
+						<input type="hidden" name="parroquia" value="<?php echo $integrante->municipio ?>">
 						<br>
 						<h4>Integrante CLAP</h4>
 						<div class="form-group form-group-lg">
 							<select style="width: 8%;" name="tipo_c" required="required">
-								
-								<option value="V">V</option>
-								<option value="E">E</option>
+							<option selected="selected" value="<?php echo $integrante->tipo_c?>"> <?php echo $integrante->tipo_c ?></option>
+							  <optgroup label='-------'></optgroup>
+							<option value="V">V</option>
+							<option value="E">E</option>
 							</select>
 							<br>
 							<br>
@@ -92,7 +136,8 @@ $integrante = Integrantes::where('id',$id_integrante)->first();
 							<br>
 							<br>
 							<select style="width: 8%;" name="tipo_b" required="required">
-								<option value="<?php echo $integrante->tipo_b ?>" > <?php echo $integrante->tipo_b ?></option>
+							<option selected="selected" value="<?php echo $integrante->tipo_b?>"> <?php echo $integrante->tipo_b ?></option>
+							  <optgroup label='-------'></optgroup>
 								<option value="J">J</option>
 								<option value="V">V</option>
 								<option value="E">E</option>
@@ -107,25 +152,27 @@ $integrante = Integrantes::where('id',$id_integrante)->first();
 							<input style="width: 100%;" name="razon_social" type="text" placeholder="Nombre de la Bodega (RAZÓN SOCIAL)" onChange="javascript:this.value=this.value.toUpperCase();" value="<?php echo $integrante->razon_social ?>" >
 						</div>
 						<div class="form-group">
-							<?php $municipios = Municipio::all(); ?>
+							<?php $municipio = Municipio::where('id_municipio',$integrante->municipio)->first(); ?>
 							<select name="municipio" id="municipio"class="form-control" required>
-								<option value="<?php echo $integrante->municipio ?>" > <?php echo $integrante->municipio ?></option>
-								<option value="">MUNICIPIO</option>
+								<option selected="selected" value="<?php echo $municipio->id_municipio ?>" > <?php echo $municipio->nombre_municipio ?></option>
 							<optgroup label='-------'></optgroup>
+							<?php $municipios = Municipio::all(); ?>
 							<?php foreach ($municipios as $municipio): ?>
 							<option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
 							<?php endforeach ?>
 						</select>
 					</div>
 					<div class="form-group">
-						<select name="parroquia" id="parroquia"class="form-control" required>
-							<option value="<?php echo $integrante->parroquia ?>" > <?php echo $integrante->parroquia ?></option>
+					<?php $parroquia = Parroquia::where('id_parrouia',$integrante->parroquia)->first(); ?>
+						<select name="parroquia" id="parroquia"class="form-control">
+						<option selected="selected" value="<?php echo $parroquia->id_parroquia ?>" > <?php echo $parroquia->nombre_parroquia ?></option>
 						</select>
 					</div>
 					<br>
 					<h4>Responsable Bodega CLAP</h4>
 					<select style="width: 8%;" name="tipo_r" required="required">
-						<option value="<?php echo $integrante->tipo_r?>" > <?php echo $integrante->tipo_r ?></option>
+						<option selected="selected" value="<?php echo $integrante->tipo_r?>"> <?php echo $integrante->tipo_r ?></option>
+					  <optgroup label='-------'></optgroup>
 						<option value="V">V</option>
 						<option value="E">E</option>
 					</select>
