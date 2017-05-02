@@ -49,7 +49,7 @@ $zona  = ClapZona::where('id', $zona_id)->first();
       <input type="hidden" name="municipio" value="<?php echo $municipio ?>">
       <input type="hidden" name="parroquia" value="<?php echo $parroquia ?>">
       <div class="col-xs-2 col-md-2 col-sm-12 panel">
-        <a href="integrantes_clap_create.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $sector_id ?>&zona_id=<?php echo $zona->id ?>&sector_id=<?php echo $sector->id ?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Integrante CLAP</a>
+        <a href="integrantes_clap_create_consulta.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $sector_id ?>&zona_id=<?php echo $zona->id ?>&sector_id=<?php echo $sector->id ?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Integrante CLAP</a>
       </div>
     </form>
     <hr>
@@ -93,7 +93,7 @@ $zona  = ClapZona::where('id', $zona_id)->first();
           <td><?php echo $s->tipo_c ?></td>
           <td><?php echo $s->cedula ?></td>
           <td>
-          <?php if ($s->e_cadip == true): ?>
+          <?php if ($s->e_cadip == false): ?>
             SI
           <?php else: ?>
             NO
