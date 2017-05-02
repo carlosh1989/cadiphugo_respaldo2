@@ -99,21 +99,22 @@ $integrante = Integrantes::where('id',$id_integrante)->first();
 			<div role="tabpanel" class="tab-pane fade in active" id="jefe">
 				<div class="col-xs-6 col-md-6 col-md-offset-3 col-sm-12 panel panel-default">
 					<div class="pull-left">
-						<a href="integrantes_clap_busqueda.php?municipio=<?php echo $integrante->sector->municipio->id_municipio ?>&parroquia=<?php echo $integrante->sector->parroquia->id_parrouia ?>&id=<?php echo $integrante->sector->id ?>" class="fa fa-arrow-left fa-3x"></a>
+						<a href="integrantes_clap_busqueda.php?municipio=<?php echo $integrante->sector->municipio->id_municipio ?>&parroquia=<?php echo $integrante->sector->parroquia->id_parrouia ?>&sector_id=<?php echo $integrante->sector->id ?>&zona_id=<?php echo $integrante->zona_id ?>" class="fa fa-arrow-left fa-3x"></a>
 					</div>
 					<h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Editar Integrante CLAP</h4>
 					<br>
 					<pre><?php echo $integrante->sector->municipio->nombre_municipio ?>, <?php echo $integrante->sector->parroquia->nombre_parroquia ?>, SECTOR <?php echo $integrante->sector->sector ?></pre>
-				<form action="integrantes_clap_editar_guardar.php" method="GET">
-					<div class="form-group form-group-lg">
+				<form action="integrantes_clap_editar_guardar.php" method="POST	">
+					<div class="form-group">
 						<input type="hidden" name="integrante_id" value="<?php echo $integrante->id ?>">
 						<input type="hidden" name="sector_id" value="<?php echo $integrante->sector_id ?>">
 						<input type="hidden" name="zona_id" value="<?php echo $integrante->zona_id ?>">
 						<input type="hidden" name="municipio" value="<?php echo $integrante->parroquia ?>">
 						<input type="hidden" name="parroquia" value="<?php echo $integrante->municipio ?>">
 						<br>
+						
+						<div class="form-group">
 						<h4>Integrante CLAP</h4>
-						<div class="form-group form-group-lg">
 							<select style="width: 8%;" name="tipo_c" required="required">
 							<option selected="selected" value="<?php echo $integrante->tipo_c?>"> <?php echo $integrante->tipo_c ?></option>
 							  <optgroup label='-------'></optgroup>
@@ -150,8 +151,9 @@ $integrante = Integrantes::where('id',$id_integrante)->first();
 							<br>
 							<br>
 							<input style="width: 100%;" name="razon_social" type="text" placeholder="Nombre de la Bodega (RAZÓN SOCIAL)" onChange="javascript:this.value=this.value.toUpperCase();" value="<?php echo $integrante->razon_social ?>" >
-						</div>
-						<div class="form-group">
+
+							<br>				
+							<br>				
 							<?php $municipio = Municipio::where('id_municipio',$integrante->municipio)->first(); ?>
 							<select name="municipio" id="municipio"class="form-control" required>
 								<option selected="selected" value="<?php echo $municipio->id_municipio ?>" > <?php echo $municipio->nombre_municipio ?></option>
@@ -161,13 +163,13 @@ $integrante = Integrantes::where('id',$id_integrante)->first();
 							<option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
 							<?php endforeach ?>
 						</select>
-					</div>
-					<div class="form-group">
+						
+					<br>
 					<?php $parroquia = Parroquia::where('id_parrouia',$integrante->parroquia)->first(); ?>
 						<select name="parroquia" id="parroquia"class="form-control">
 						<option selected="selected" value="<?php echo $parroquia->id_parroquia ?>" > <?php echo $parroquia->nombre_parroquia ?></option>
 						</select>
-					</div>
+	
 					<br>
 					<h4>Responsable Bodega CLAP</h4>
 					<select style="width: 8%;" name="tipo_r" required="required">

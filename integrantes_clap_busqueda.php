@@ -87,7 +87,7 @@ $zona  = ClapZona::where('id', $zona_id)->first();
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($zona->integrantes_clap as $s): ?>
+        <?php foreach ($zona->integrantes_clap()->where('eliminar', '<', 1)->get() as $s): ?>
         <tr>
           <td><?php echo $s->id; ?></td>
           <td><?php echo $s->tipo_c ?></td>
@@ -130,7 +130,7 @@ $zona  = ClapZona::where('id', $zona_id)->first();
           <td><?php echo $s->telefono_r ?></td>
           
           <td><a class="btn btn-info text-success fa fa-pencil" href="integrantes_clap_editar.php?id_integrante=<?php echo $s->id ?>"></a></td>
-          <td><a onclick="return confirm('Esta seguro que quiere borrar Zona CLAP?')" class="btn btn-danger text-danger fa fa-times-circle" href="zona_clap_eliminar.php?zona_id=<?php echo $s->id ?>"></a></td>
+          <td><a onclick="return confirm('Esta seguro que quiere borrar Zona CLAP?')" class="btn btn-danger text-danger fa fa-times-circle" href="integrantes_clap_eliminar.php?zona_id=<?php echo $zona_id ?>&sector_id=<?php echo $sector_id ?>&parroquia=<?php echo $parroquia ?>&municipio=<?php echo $municipio ?>&integrante_id=<?php echo $s->id; ?>"></a></td>
         </tr>
         <?php endforeach ?>
       </tbody>

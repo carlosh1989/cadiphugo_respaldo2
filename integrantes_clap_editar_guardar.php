@@ -16,34 +16,39 @@ new Eloquent();
 
 extract($_GET);
 extract($_POST);
+//Krumo::dump($integrante);
+$int = Integrantes::find($integrante_id);
 
-$integrante = Integrantes::find($integrante_id);
-	
+if(!$parroquia)
+{
+	$parroquia = $int->parroquia;
+}
 
-Krumo::dump($integrante);
+if(!$municipio)
+{
+	$municipio = $int->municipio;
+}
 
-// $create = Integrantes::create([
-// 	'sector_id'		 => $sector_id,
-// 	'zona_id'		 => $zona_id,
-// 	'tipo_c'		 => $tipo_c,	
-// 	'cedula'		 => $cedula,
-// 	'e_cadip'		 => 0,	
-// 	'nombre_a'		 => $nombre_a,
-// 	'telefono'		 => $telefono,
-// 	'jefe_carga'	 => 1,
-// 	'cod_bodega'	 => $cod_bodega,
-// 	'tipo_b'		 => $tipo_b,
-// 	'rif_b'			 => $rif_b,
-// 	'razon_social'	 => $razon_social,
-// 	'municipio'		 => $municipio,
-// 	'parroquia'		 => $parroquia,
-// 	'tipo_r'		 => $tipo_r,
-// 	'cedula_r'		 => $cedula_r,
-// 	'responsable'	 => $responsable,
-// 	'telefono_r'	 => $telefono_r,
-// 	'eliminar'		 => 0,
-// ]);
+$datos = array(
+	'tipo_c'		 => $tipo_c,	
+	'cedula'		 => $cedula,
+	'nombre_a'		 => $nombre_a,
+	'telefono'		 => $telefono,
+	'cod_bodega'	 => $cod_bodega,
+	'tipo_b'		 => $tipo_b,
+	'rif_b'			 => $rif_b,
+	'razon_social'	 => $razon_social,
+	'municipio'		 => $municipio,
+	'parroquia'		 => $parroquia,
+	'tipo_r'		 => $tipo_r,
+	'cedula_r'		 => $cedula_r,
+	'responsable'	 => $responsable,
+	'telefono_r'	 => $telefono_r,
+);
 
-//header("Location: integrantes_clap_busqueda.php?municipio=".$municipio."&parroquia=".$parroquia."&sector_id=".$sector->id."&zona_id=".$zona->id.""); /* Redirect browser */
-//exit();
+$integrante = Integrantes::find($integrante_id)->update($datos);
+
+//Krumo::dump($datos);
+header("Location: integrantes_clap_busqueda.php?municipio=".$municipio."&parroquia=".$parroquia."&sector_id=".$sector_id."&zona_id=".$zona_id.""); /* Redirect browser */
+exit();
 ?>

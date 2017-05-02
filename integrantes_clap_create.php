@@ -113,7 +113,7 @@ $zona  = ClapZona::where('id', $zona_id)->first();
           <input type="hidden" name="parroquia" value="<?php echo $parro->id ?>">
           <br>
           <h4>Integrante CLAP</h4>
-          <div class="form-group form-group-lg">
+          <div class="form-group form-group-lg">            
             <select style="width: 8%;" name="tipo_c" required="required">
               <option value="V" selected="selected" >V</option>
               <option value="E">E</option>
@@ -129,6 +129,12 @@ $zona  = ClapZona::where('id', $zona_id)->first();
             <input style="width: 100%;" name=" telefono" type="number" placeholder="Teléfono del Integrante">
             <br>
             <br>
+            <input style="width: 100%;" name="e_cadip" type="number" placeholder="¿Existe en CADIP?">
+              <br>
+              <br>
+              <input style="width: 100%;" name="jefe_carga" type="number" placeholder="¿Jefe ó Carga?">
+              <br>
+              <br>
             <h4>Bodega CLAP</h4>
             <input style="width: 100%;" name="cod_bodega" type="text" placeholder="Código de la Bodega" onChange="javascript:this.value=this.value.toUpperCase();">
             <br>
