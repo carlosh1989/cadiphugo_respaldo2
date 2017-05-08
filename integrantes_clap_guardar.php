@@ -7,6 +7,7 @@ $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
 use DB\Eloquent;
+use Models\Clap2;
 use Models\ClapZona;
 use Models\Integrantes;
 use Models\Municipio;
@@ -21,7 +22,16 @@ $muni = Municipio::where('id_municipio', $municipio)->first();
 $parro = Parroquia::where('id_parrouia', $parroquia)->first();
 $sector  = Sector::where('id', $sector_id )->first();
 $zona  = ClapZona::where('id', $zona_id)->first();
+$clap = Clap2::where('cedula',$cedula)->first();
 
+if($cargo_clap == $clap->cargo_id)
+{
+	$c_cargo = 1;
+}
+else
+{
+	$c_cargo = 0;
+}
 
 $create = Integrantes::create([
 	'sector_id'		 => $sector_id,
@@ -32,6 +42,7 @@ $create = Integrantes::create([
 	'e_clap'         => $e_clap,
 	'c_municipio'	 => $c_municipio,
 	'c_parroquia'    => $c_parroquia,
+	'c_cargo'		 => $c_cargo,
 	'nombre_a'		 => $nombre_a,
 	'telefono'		 => $telefono,
 	'jefe_carga'	 => $jefe_carga,

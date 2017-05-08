@@ -54,7 +54,7 @@ $sector  = Sector::where('id_municipio', $municipio)->where('id_parroquia',$parr
 <hr>
 <form action="sector_guardar.php" method="GET">
 	<div class="col-xs-10 col-md-10 col-sm-12 panel">
-		<input style="width: 100%;" name="direccion" type="text" placeholder="Ingrese nuevo sector CLAP" onChange="javascript:this.value=this.value.toUpperCase();">
+		<input style="width: 100%;" name="direccion" type="text" placeholder="Ingrese nuevo sector CLAP" onChange="javascript:this.value=this.value.toUpperCase();" required>
 	</div>
 	<input type="hidden" name="municipio" value="<?php echo $municipio ?>">
 	<input type="hidden" name="parroquia" value="<?php echo $parroquia ?>">

@@ -45,6 +45,7 @@ $e_cadip = 0;
 $cargo = "";
 $clap_existe = 0;
 $bodega = "";
+$c_cargo = 0;
 }
 else
 {
@@ -63,16 +64,18 @@ $parroquia_int = $jefe->cod_parroquia;
 $e_cadip = 1;
 $claps = Clap2::where('cedula',$cedula)->first();
 $bodega = Bodega::find($jefe->bodega);
-if($claps)
-{
-$cargo = Cargo::where('id',$claps->cargo_id)->first();
-$clap_existe = 1;
-}
-else
-{
-$cargo = "";
-$clap_existe = 0;
-}
+  if($claps)
+  {
+  $cargo = Cargo::where('id',$claps->cargo_id)->first();
+  $clap_existe = 1;
+  $c_cargo = 1;
+  }
+  else
+  {
+  $cargo = "";
+  $clap_existe = 0;
+  $c_cargo = 0;
+  }
 }
 else
 {
@@ -91,18 +94,20 @@ $e_cadip = 1;
 $claps = Clap2::where('cedula',$cedula)->first();
 $bodega_jefe = Jefe::where('cedula',$familia->cod_cabeza_familia)->first();
 $bodega = Bodega::find($bodega_jefe->bodega);
-
 //Krumo::dump($bodega);
-if($claps)
-{
-$cargo = Cargo::where('id',$claps->cargo_id)->first();
-$clap_existe = 1;
-}
-else
-{
-$cargo = "";
-$clap_existe = 0;
-}
+  if($claps)
+  {
+  $cargo = Cargo::where('id',$claps->cargo_id)->first();
+  $clap_existe = 1;
+
+  $c_cargo = 1;
+  }
+  else
+  {
+  $cargo = "";
+  $clap_existe = 0;
+  $c_cargo = 0;
+  }
 }
 else
 {
@@ -118,6 +123,7 @@ $e_cadip = 0;
 $cargo = "";
 $clap_existe = 0;
 $bodega = "";
+$c_cargo = 0;
 }
 }
 }
@@ -145,12 +151,26 @@ $bodega_responsable_cedula = "";
 $bodega_responsable_nombre = "";
 $bodega_responsable_telefono = "";
 }
-
+if($integrante)
+{
+$c_bodega = "";
+}
+else
+{
+if($bodega)
+{
+if($zona->cod_bodega == $bodega->id)
+{
+$c_bodega = 1;
+}
+else
+{
+$c_bodega = 0;
+}
 if($municipio_int AND $parroquia_int)
 {
 if($bodega_municipio AND $bodega_parroquia)
 {
-
 if($municipio_int == $bodega_municipio)
 {
 $igual_municipio = 1;
@@ -159,7 +179,6 @@ else
 {
 $igual_municipio = 0;
 }
-
 if($parroquia_int == $bodega_parroquia)
 {
 $igual_parroquia = 1;
@@ -170,27 +189,29 @@ $igual_parroquia = 0;
 }
 }
 }
-else
-{
-}
-
-if($integrante)
-{
-  $c_bodega = "";
 }
 else
 {
-  if($zona->cod_bodega == $bodega->id)
-  {
-    $c_bodega = 1;
-  }
-  else
-  {
-   $c_bodega = 0;
-  } 
+$c_bodega = "";
+$igual_municipio = "";
+$igual_parroquia = "";
+}
 }
 
+$claps = Clap2::where('cedula',$_GET['cedula'])->first();
 
+if($claps)
+{
+$cargo = Cargo::where('id',$claps->cargo_id)->first();
+$clap_existe = 1;
+$c_cargo = 1;
+}
+else
+{
+$cargo = "";
+$clap_existe = 0;
+$c_cargo = 0;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -273,7 +294,7 @@ else
           </div>
           <h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Integrantes CLAP</h4>
           <br>
-        <pre><?php echo $muni->nombre_municipio ?>, <?php echo $parro->nombre_parroquia ?>, <?php echo $sector->sector ?>, <?php echo $zona->comunidad ?></pre>
+        <pre><?php echo $muni->nombre_municipio ?>, <?php echo $parro->nombre_parroquia ?>, SECTOR <?php echo $sector->sector ?>, COMUNIDAD <?php echo $zona->comunidad ?></pre>
         <?php if($registrado == true): ?>
         <div class="alert alert-success">
           <strong>Integrante encontrado en SECTORES CLAP!</strong>
@@ -309,6 +330,9 @@ else
           <strong>Integrante encontrado en tabla CLAPS!</strong>.
         </div>
         <?php endif ?>
+        <?php if ($bodega == false): ?>
+        
+        <?php else: ?>
         <?php if($igual_municipio == false): ?>
         <div class="alert alert-warning">
           <strong>NO coinciden los municipios!</strong>
@@ -327,7 +351,7 @@ else
           <strong>SI coinciden las parroquias!</strong>
         </div>
         <?php endif ?>
-      
+        
         <?php if($c_bodega == false): ?>
         <div class="alert alert-warning">
           <strong>NO coinciden el SECTOR CLAP con la BODEGA CADIP!</strong>
@@ -337,149 +361,13 @@ else
           <strong>SI coinciden el SECTOR CLAP con la BODEGA CADIP!</strong>
         </div>
         <?php endif ?>
-
+        <?php endif ?>
         <?php if ($registrado == true): ?>
         
         <?php else: ?>
         <?php if ($clap_existe == false): ?>
-          <?php if ($e_cadip == true): ?>
-            
-    <form action="integrantes_clap_guardar.php" method="GET">
-      <input type="hidden" name="sector_id" value="<?php echo $sector->id ?>">
-      <input type="hidden" name="zona_id" value="<?php echo $zona->id ?>">
-      <input type="hidden" name="municipio" value="<?php echo $muni->id ?>">
-      <input type="hidden" name="parroquia" value="<?php echo $parro->id ?>">
-      <input type="hidden" name="e_cadip" value="<?php echo $e_cadip ?>">
-      <input type="hidden" name="e_clap" value="<?php echo $clap_existe ?>">
-      <input type="hidden" name="c_municipio" value="<?php echo $igual_municipio ?>">
-      <input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
-      <input type="hidden" name="c_bodega" value="<?php echo $c_bodega ?>">
-      <br>
-      <h4>Integrante CLAP</h4>
-      <div class="form-group">
-        <select style="width: 8%;" name="tipo_c" required="required">
-          <option value="V" selected="selected" >V</option>
-          <option value="E">E</option>
-        </select>
-        <br>
-        <br>
-        <input style="width: 100%;" readonly name="cedula" type="number" placeholder="Cedula del Integrante" value="<?php echo $cedula ?>">
-        <br>
-        <br>
-        <input style="width: 100%;" readonly name="nombre_a" type="text" placeholder="Nombres y Apellidos del Integrante" onChange="javascript:this.value=this.value.toUpperCase();" value="<?php echo $nombre_y_apellido ?>" >
-        <br>
-        <br>
-        <div class="form-group">
-          <?php $municipios = Municipio::all(); ?>
-          <select name="municipio_int" id="municipioB"class="form-control" required>
-            <?php if ($municipio_int): ?>
-            <?php $municipio_int_nombre = Municipio::where('id_municipio',$municipio_int)->first(); ?>
-            <option value="<?php echo $municipio_int ?>"><?php echo $municipio_int_nombre->nombre_municipio ?></option>
-          <optgroup label='-------'></optgroup>
-          <?php endif ?>
-          <?php foreach ($municipios as $municipio): ?>
-          <option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
-          <?php endforeach ?>
-        </select>
-      </div>
-      <div class="form-group">
-        <select name="parroquia_int" id="parroquiaB"class="form-control" value="<?php echo $parroquia ?>" required>
-          <?php if ($parroquia_int): ?>
-          <?php $parroquia_int_nombre = Parroquia::where('id_parrouia',$parroquia_int)->first(); ?>
-          <option value="<?php echo $parroquia_int ?>"><?php echo $parroquia_int_nombre->nombre_parroquia ?></option>
-          <?php endif ?>
-        </select>
-      </div>
-      <input style="width: 100%;" name=" telefono" type="text" placeholder="Teléfono del Integrante" value="<?php echo $telefono ?>" >
-      <br>
-      <br>
-      <select name="jefe_carga" id="">
-        <?php if ($jefe): ?>
-        <option value="1">JEFE</option>
-        <?php elseif ($familia): ?>
-        <option value="2">CARGA</option>
-        <?php else:  ?>
-        <option value="">NO EXISTE</option>
-        <?php endif ?>
-      </select>
-      <br>
-      <br>
-      <select name="cargo_clap" id="" required>
-        <?php if ($cargo): ?>
-        <option value="<?php echo $cargo->id ?>"><?php echo $cargo->cargo ?></option>
-          <optgroup label='-------'></optgroup>
-        <?php endif ?>
-
-                <?php foreach ($cargos as $ca): ?>
-        <option value="<?php echo $ca->id ?>"><?php echo $ca->cargo ?></option>
-        <?php endforeach ?>
-      </select>
-      <br>
-      <br>
-      <h4>Bodega CLAP</h4>
-      <input style="width: 100%;" name="cod_bodega" type="text" value="<?php echo $bodega_id ?>" placeholder="Código de la Bodega" onChange="javascript:this.value=this.value.toUpperCase();" >
-      <br>
-      <br>
-      <select style="width: 8%;" name="tipo_b" required="required">
-        <?php if ($bodega_tipo_b): ?>
-        <option value="<?php echo $bodega_tipo_b ?>"><?php echo $bodega_tipo_b ?></option>
-        <?php else: ?>
-        <option value="J" selected="selected" >J</option>
-        <option value="V">V</option>
-        <option value="E">E</option>
-        <option value="G">G</option>
-        <option value="P">P</option>
-        <?php endif ?>
-      </select>
-      <br>
-      <br>
-      <input style="width: 100%;" name="rif_b" value="<?php echo $bodega_rif ?>" type="number" placeholder="RIF de la Bodega" required >
-      <br>
-      <br>
-      <input style="width: 100%;" name="razon_social" value="<?php echo $bodega_razon_social ?>" type="text" placeholder="Nombre de la Bodega (RAZÓN SOCIAL)" onChange="javascript:this.value=this.value.toUpperCase();" requiered >
-    </div>
-    <div class="form-group">
-      <?php $municipios = Municipio::all(); ?>
-      <select name="municipio" id="municipio"class="form-control" required>
-        <?php if ($bodega_municipio): ?>
-        <?php $municipio_bode = Municipio::where('id_municipio',$bodega_municipio)->first(); ?>
-      <option value="<?php echo $bodega_municipio ?>"><?php echo $municipio_bode->nombre_municipio ?></option selected>
-      <?php else: ?>
-      <?php foreach ($municipios as $municipio): ?>
-      <option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
-      <?php endforeach ?>
-      <?php endif ?>
-    </select>
-  </div>
-  <div class="form-group">
-    <select name="parroquia" id="parroquia"class="form-control" required>
-      <?php if ($bodega_parroquia): ?>
-      <?php $parroquia_bode = Parroquia::where('id_parrouia',$bodega_parroquia)->first(); ?>
-      <option value="<?php echo $bodega_parroquia ?>"><?php echo $parroquia_bode->nombre_parroquia ?></option>
-      <?php endif ?>
-    </select>
-  </div>
-  <br>
-  <h4>Responsable Bodega CLAP</h4>
-  <select style="width: 8%;" name="tipo_r" required="required">
-    <option value="V" selected="selected" >V</option>
-    <option value="E">E</option>
-  </select>
-  <br>
-  <br>
-  <input style="width: 100%;" name="cedula_r" value="<?php echo $bodega_responsable_cedula ?>" type="number" placeholder="Cedula del Bodeguero" required >
-  <br>
-  <br>
-  <input style="width: 100%;" name="responsable" value="<?php echo $bodega_responsable_nombre ?>" type="text" placeholder="Nombres y Apellidos del Bodeguero" onChange="javascript:this.value=this.value.toUpperCase();" required >
-  <br>
-  <br>
-  <input style="width: 100%;" name="telefono_r" value="<?php echo $bodega_responsable_telefono ?>" type="number" placeholder="Teléfono del Bodeguero" required>
-  <hr>
-  <button class="btn btn-success pull-right" type="submit">
-  Guardar <i class="fa fa-save"></i></button>
-  
-</form>
-          <?php else: ?>
+        <?php if ($e_cadip == true): ?>
+        
         <form action="integrantes_clap_guardar.php" method="GET">
           <input type="hidden" name="sector_id" value="<?php echo $sector->id ?>">
           <input type="hidden" name="zona_id" value="<?php echo $zona->id ?>">
@@ -489,6 +377,8 @@ else
           <input type="hidden" name="e_clap" value="<?php echo $clap_existe ?>">
           <input type="hidden" name="c_municipio" value="<?php echo $igual_municipio ?>">
           <input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
+          <input type="hidden" name="c_bodega" value="<?php echo $c_bodega ?>">
+          <input type="hidden" name="c_cargo" value="<?php echo $c_cargo ?>">
           <br>
           <h4>Integrante CLAP</h4>
           <div class="form-group">
@@ -498,229 +388,370 @@ else
             </select>
             <br>
             <br>
-            <input style="width: 100%;" name="cedula" type="number" placeholder="Cedula del Integrante" required>
+            <input style="width: 100%;" readonly name="cedula" type="number" placeholder="Cedula del Integrante" value="<?php echo $cedula ?>">
             <br>
             <br>
-            <input style="width: 100%;" name="nombre_a" type="text" placeholder="Nombres y Apellidos del Integrante" onChange="javascript:this.value=this.value.toUpperCase();"  required>
+            <input style="width: 100%;" readonly name="nombre_a" type="text" placeholder="Nombres y Apellidos del Integrante" onChange="javascript:this.value=this.value.toUpperCase();" value="<?php echo $nombre_y_apellido ?>" >
             <br>
             <br>
             <div class="form-group">
               <?php $municipios = Municipio::all(); ?>
               <select name="municipio_int" id="municipioB"class="form-control" required>
-                <option value="">MUNICIPIO</option>
+                <?php if ($municipio_int): ?>
+                <?php $municipio_int_nombre = Municipio::where('id_municipio',$municipio_int)->first(); ?>
+                <option value="<?php echo $municipio_int ?>"><?php echo $municipio_int_nombre->nombre_municipio ?></option>
               <optgroup label='-------'></optgroup>
+              <?php endif ?>
               <?php foreach ($municipios as $municipio): ?>
               <option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
               <?php endforeach ?>
             </select>
           </div>
           <div class="form-group">
-            
-            <select name="parroquia_int" id="parroquiaB"class="form-control" required>
+            <select name="parroquia_int" id="parroquiaB"class="form-control" value="<?php echo $parroquia ?>" required>
+              <?php if ($parroquia_int): ?>
+              <?php $parroquia_int_nombre = Parroquia::where('id_parrouia',$parroquia_int)->first(); ?>
+              <option value="<?php echo $parroquia_int ?>"><?php echo $parroquia_int_nombre->nombre_parroquia ?></option>
+              <?php endif ?>
             </select>
           </div>
-          <input style="width: 100%;" name=" telefono" type="text" placeholder="Teléfono del Integrante" required >
+          <input style="width: 100%;" name=" telefono" type="text" placeholder="Teléfono del Integrante" value="<?php echo $telefono ?>" >
           <br>
           <br>
           <select name="jefe_carga" id="">
-            <option selected="selected" value="">NO REGISTRADO JEFE/CARGA</option>
+            <?php if ($jefe): ?>
+            <option value="1">JEFE</option>
+            <?php elseif ($familia): ?>
+            <option value="2">CARGA</option>
+            <?php else:  ?>
+            <option value="">NO EXISTE</option>
+            <?php endif ?>
           </select>
           <br>
           <br>
           <select name="cargo_clap" id="" required>
-            <?php foreach ($cargos as $ca): ?>
-            <option value="<?php echo $ca->id ?>"><?php echo $ca->cargo ?></option>
-            <?php endforeach ?>
-          </select>
-          <br>
-          <br>
-          <h4>Bodega CLAP</h4>
-          <input style="width: 100%;" name="cod_bodega" type="text" placeholder="Código de la Bodega" onChange="javascript:this.value=this.value.toUpperCase();" required>
-          <br>
-          <br>
-          <select style="width: 8%;" name="tipo_b" required="required">
-            <option value="J" selected="selected" >J</option>
-            <option value="V">V</option>
-            <option value="E">E</option>
-            <option value="G">G</option>
-            <option value="P">P</option>
-          </select>
-          <br>
-          <br>
-          <input style="width: 100%;" name="rif_b" type="number" placeholder="RIF de la Bodega" required >
-          <br>
-          <br>
-          <input style="width: 100%;" name="razon_social" type="text" placeholder="Nombre de la Bodega (RAZÓN SOCIAL)" onChange="javascript:this.value=this.value.toUpperCase();" required>
-        </div>
-        <div class="form-group">
-          <?php $municipios = Municipio::all(); ?>
-          <select name="municipio" id="municipio"class="form-control" required>
-            <option value="">MUNICIPIO</option>
+            <?php if ($cargo): ?>
+            <option value="<?php echo $cargo->id ?>"><?php echo $cargo->cargo ?></option>
           <optgroup label='-------'></optgroup>
-          <?php foreach ($municipios as $municipio): ?>
-          <option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
+          <?php endif ?>
+          <?php foreach ($cargos as $ca): ?>
+          <option value="<?php echo $ca->id ?>"><?php echo $ca->cargo ?></option>
           <?php endforeach ?>
         </select>
+        <br>
+        <br>
+        <h4>Bodega CLAP</h4>
+        <input style="width: 100%;" name="cod_bodega" type="text" value="<?php echo $bodega_id ?>" placeholder="Código de la Bodega" onChange="javascript:this.value=this.value.toUpperCase();" >
+        <br>
+        <br>
+        <select style="width: 8%;" name="tipo_b" required="required">
+          <?php if ($bodega_tipo_b): ?>
+          <option value="<?php echo $bodega_tipo_b ?>"><?php echo $bodega_tipo_b ?></option>
+          <?php else: ?>
+          <option value="J" selected="selected" >J</option>
+          <option value="V">V</option>
+          <option value="E">E</option>
+          <option value="G">G</option>
+          <option value="P">P</option>
+          <?php endif ?>
+        </select>
+        <br>
+        <br>
+        <input style="width: 100%;" name="rif_b" value="<?php echo $bodega_rif ?>" type="number" placeholder="RIF de la Bodega" required >
+        <br>
+        <br>
+        <input style="width: 100%;" name="razon_social" value="<?php echo $bodega_razon_social ?>" type="text" placeholder="Nombre de la Bodega (RAZÓN SOCIAL)" onChange="javascript:this.value=this.value.toUpperCase();" requiered >
       </div>
       <div class="form-group">
-        
-        <select name="parroquia" id="parroquia"class="form-control" required>
-        </select>
-      </div>
-      <br>
-      <h4>Responsable Bodega CLAP</h4>
-      <select style="width: 8%;" name="tipo_r" required="required">
+        <?php $municipios = Municipio::all(); ?>
+        <select name="municipio" id="municipio"class="form-control" required>
+          <?php if ($bodega_municipio): ?>
+          <?php $municipio_bode = Municipio::where('id_municipio',$bodega_municipio)->first(); ?>
+        <option value="<?php echo $bodega_municipio ?>"><?php echo $municipio_bode->nombre_municipio ?></option selected>
+        <?php else: ?>
+        <?php foreach ($municipios as $municipio): ?>
+        <option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
+        <?php endforeach ?>
+        <?php endif ?>
+      </select>
+    </div>
+    <div class="form-group">
+      <select name="parroquia" id="parroquia"class="form-control" required>
+        <?php if ($bodega_parroquia): ?>
+        <?php $parroquia_bode = Parroquia::where('id_parrouia',$bodega_parroquia)->first(); ?>
+        <option value="<?php echo $bodega_parroquia ?>"><?php echo $parroquia_bode->nombre_parroquia ?></option>
+        <?php endif ?>
+      </select>
+    </div>
+    <br>
+    <h4>Responsable Bodega CLAP</h4>
+    <select style="width: 8%;" name="tipo_r" required="required">
+      <option value="V" selected="selected" >V</option>
+      <option value="E">E</option>
+    </select>
+    <br>
+    <br>
+    <input style="width: 100%;" name="cedula_r" value="<?php echo $bodega_responsable_cedula ?>" type="number" placeholder="Cedula del Bodeguero" required >
+    <br>
+    <br>
+    <input style="width: 100%;" name="responsable" value="<?php echo $bodega_responsable_nombre ?>" type="text" placeholder="Nombres y Apellidos del Bodeguero" onChange="javascript:this.value=this.value.toUpperCase();" required >
+    <br>
+    <br>
+    <input style="width: 100%;" name="telefono_r" value="<?php echo $bodega_responsable_telefono ?>" type="number" placeholder="Teléfono del Bodeguero" required>
+    <hr>
+    <button class="btn btn-success pull-right" type="submit">
+    Guardar <i class="fa fa-save"></i></button>
+    
+  </form>
+  <?php else: ?>
+  <form action="integrantes_clap_guardar.php" method="GET">
+    <input type="hidden" name="sector_id" value="<?php echo $sector->id ?>">
+    <input type="hidden" name="zona_id" value="<?php echo $zona->id ?>">
+    <input type="hidden" name="municipio" value="<?php echo $muni->id ?>">
+    <input type="hidden" name="parroquia" value="<?php echo $parro->id ?>">
+    <input type="hidden" name="e_cadip" value="<?php echo $e_cadip ?>">
+    <input type="hidden" name="e_clap" value="<?php echo $clap_existe ?>">
+    <input type="hidden" name="c_municipio" value="<?php echo $igual_municipio ?>">
+    <input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
+    <input type="hidden" name="c_bodega" value="<?php echo $c_bodega ?>">
+      <input type="hidden" name="c_cargo" value="<?php echo $c_cargo ?>">
+    <br>
+
+<br />
+
+
+    <h4>Integrante CLAP</h4>
+    <div class="form-group">
+      <select style="width: 8%;" name="tipo_c" required="required">
         <option value="V" selected="selected" >V</option>
         <option value="E">E</option>
       </select>
       <br>
       <br>
-      <input style="width: 100%;" name="cedula_r" type="number" placeholder="Cedula del Bodeguero" required >
+      <input style="width: 100%;" name="cedula" type="number" placeholder="Cedula del Integrante" required>
       <br>
       <br>
-      <input style="width: 100%;" name="responsable" type="text" placeholder="Nombres y Apellidos del Bodeguero" onChange="javascript:this.value=this.value.toUpperCase();" required >
+      <input style="width: 100%;" name="nombre_a" type="text" placeholder="Nombres y Apellidos del Integrante" onChange="javascript:this.value=this.value.toUpperCase();"  required>
       <br>
       <br>
-      <input style="width: 100%;" name="telefono_r" type="number" placeholder="Teléfono del Bodeguero" required>
-      <hr>
-      <button class="btn btn-success pull-right" type="submit">
-      Guardar <i class="fa fa-save"></i></button>
-    </form>
-             <?php endif ?>
-    <?php else: ?>
-    <form action="integrantes_clap_guardar.php" method="GET">
-      <input type="hidden" name="sector_id" value="<?php echo $sector->id ?>">
-      <input type="hidden" name="zona_id" value="<?php echo $zona->id ?>">
-      <input type="hidden" name="municipio" value="<?php echo $muni->id ?>">
-      <input type="hidden" name="parroquia" value="<?php echo $parro->id ?>">
-      <input type="hidden" name="e_cadip" value="<?php echo $e_cadip ?>">
-      <input type="hidden" name="e_clap" value="<?php echo $clap_existe ?>">
-      <input type="hidden" name="c_municipio" value="<?php echo $igual_municipio ?>">
-      <input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
-      <br>
-      <h4>Integrante CLAP</h4>
       <div class="form-group">
-        <select style="width: 8%;" name="tipo_c" required="required">
-          <option value="V" selected="selected" >V</option>
-          <option value="E">E</option>
-        </select>
-        <br>
-        <br>
-        <input style="width: 100%;" readonly name="cedula" type="number" placeholder="Cedula del Integrante" value="<?php echo $cedula ?>">
-        <br>
-        <br>
-        <input style="width: 100%;" readonly name="nombre_a" type="text" placeholder="Nombres y Apellidos del Integrante" onChange="javascript:this.value=this.value.toUpperCase();" value="<?php echo $nombre_y_apellido ?>" >
-        <br>
-        <br>
-        <div class="form-group">
-          <?php $municipios = Municipio::all(); ?>
-          <select name="municipio_int" id="municipioB"class="form-control" required>
-            <?php if ($municipio_int): ?>
-            <?php $municipio_int_nombre = Municipio::where('id_municipio',$municipio_int)->first(); ?>
-            <option value="<?php echo $municipio_int ?>"><?php echo $municipio_int_nombre->nombre_municipio ?></option>
-          <optgroup label='-------'></optgroup>
-          <?php endif ?>
-          <?php foreach ($municipios as $municipio): ?>
-          <option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
-          <?php endforeach ?>
-        </select>
-      </div>
-      <div class="form-group">
-        <select name="parroquia_int" id="parroquiaB"class="form-control" value="<?php echo $parroquia ?>" required>
-          <?php if ($parroquia_int): ?>
-          <?php $parroquia_int_nombre = Parroquia::where('id_parrouia',$parroquia_int)->first(); ?>
-          <option value="<?php echo $parroquia_int ?>"><?php echo $parroquia_int_nombre->nombre_parroquia ?></option>
-          <?php endif ?>
-        </select>
-      </div>
-      <input style="width: 100%;" name=" telefono" type="text" placeholder="Teléfono del Integrante" value="<?php echo $telefono ?>" >
-      <br>
-      <br>
-      <select name="jefe_carga" id="">
-        <?php if ($jefe): ?>
-        <option value="1">JEFE</option>
-        <?php elseif ($familia): ?>
-        <option value="2">CARGA</option>
-        <?php else:  ?>
-        <option value="">NO EXISTE</option>
-        <?php endif ?>
-      </select>
-      <br>
-      <br>
-      <select name="cargo_clap" id="" required>
-        <?php if ($cargo): ?>
-        <option value="<?php echo $cargo->id ?>"><?php echo $cargo->cargo ?></option>
-          <optgroup label='-------'></optgroup>
-        <?php endif ?>
-
-                <?php foreach ($cargos as $ca): ?>
-        <option value="<?php echo $ca->id ?>"><?php echo $ca->cargo ?></option>
+        <?php $municipios = Municipio::all(); ?>
+        <select name="municipio_int" id="municipioB"class="form-control" required>
+          <option value="">MUNICIPIO</option>
+        <optgroup label='-------'></optgroup>
+        <?php foreach ($municipios as $municipio): ?>
+        <option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
         <?php endforeach ?>
       </select>
-      <br>
-      <br>
-      <h4>Bodega CLAP</h4>
-      <input style="width: 100%;" name="cod_bodega" type="text" value="<?php echo $bodega_id ?>" placeholder="Código de la Bodega" onChange="javascript:this.value=this.value.toUpperCase();" >
-      <br>
-      <br>
-      <select style="width: 8%;" name="tipo_b" required="required">
-        <?php if ($bodega_tipo_b): ?>
-        <option value="<?php echo $bodega_tipo_b ?>"><?php echo $bodega_tipo_b ?></option>
-        <?php else: ?>
-        <option value="J" selected="selected" >J</option>
-        <option value="V">V</option>
-        <option value="E">E</option>
-        <option value="G">G</option>
-        <option value="P">P</option>
-        <?php endif ?>
-      </select>
-      <br>
-      <br>
-      <input style="width: 100%;" name="rif_b" value="<?php echo $bodega_rif ?>" type="number" placeholder="RIF de la Bodega" required >
-      <br>
-      <br>
-      <input style="width: 100%;" name="razon_social" value="<?php echo $bodega_razon_social ?>" type="text" placeholder="Nombre de la Bodega (RAZÓN SOCIAL)" onChange="javascript:this.value=this.value.toUpperCase();" requiered >
     </div>
     <div class="form-group">
-      <?php $municipios = Municipio::all(); ?>
-      <select name="municipio" id="municipio"class="form-control" required>
-        <?php if ($bodega_municipio): ?>
-        <?php $municipio_bode = Municipio::where('id_municipio',$bodega_municipio)->first(); ?>
-      <option value="<?php echo $bodega_municipio ?>"><?php echo $municipio_bode->nombre_municipio ?></option selected>
-      <?php else: ?>
-      <?php foreach ($municipios as $municipio): ?>
-      <option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
-      <?php endforeach ?>
-      <?php endif ?>
+      
+      <select name="parroquia_int" id="parroquiaB"class="form-control" required>
+      </select>
+    </div>
+    <input style="width: 100%;" name=" telefono" type="text" placeholder="Teléfono del Integrante" required >
+    <br>
+    <br>
+    <select name="jefe_carga" id="">
+      <option selected="selected" value="">NO REGISTRADO JEFE/CARGA</option>
     </select>
+    <br>
+    <br>
+
+    <select name="cargo_clap" id="theSelect" required>
+      <?php foreach ($cargos as $ca): ?>
+      <option value="<?php echo $ca->id ?>"><?php echo $ca->cargo ?></option>
+      <?php endforeach ?>
+    </select>
+    <br>
+    <br>
+    <h4>Bodega CLAP</h4>
+    <input style="width: 100%;" name="cod_bodega" type="text" placeholder="Código de la Bodega" onChange="javascript:this.value=this.value.toUpperCase();" required>
+    <br>
+    <br>
+    <select style="width: 8%;" name="tipo_b" required="required">
+      <option value="J" selected="selected" >J</option>
+      <option value="V">V</option>
+      <option value="E">E</option>
+      <option value="G">G</option>
+      <option value="P">P</option>
+    </select>
+    <br>
+    <br>
+    <input style="width: 100%;" name="rif_b" type="number" placeholder="RIF de la Bodega" required >
+    <br>
+    <br>
+    <input style="width: 100%;" name="razon_social" type="text" placeholder="Nombre de la Bodega (RAZÓN SOCIAL)" onChange="javascript:this.value=this.value.toUpperCase();" required>
   </div>
   <div class="form-group">
-    <select name="parroquia" id="parroquia"class="form-control" required>
-      <?php if ($bodega_parroquia): ?>
-      <?php $parroquia_bode = Parroquia::where('id_parrouia',$bodega_parroquia)->first(); ?>
-      <option value="<?php echo $bodega_parroquia ?>"><?php echo $parroquia_bode->nombre_parroquia ?></option>
-      <?php endif ?>
-    </select>
-  </div>
-  <br>
-  <h4>Responsable Bodega CLAP</h4>
-  <select style="width: 8%;" name="tipo_r" required="required">
+    <?php $municipios = Municipio::all(); ?>
+    <select name="municipio" id="municipio"class="form-control" required>
+      <option value="">MUNICIPIO</option>
+    <optgroup label='-------'></optgroup>
+    <?php foreach ($municipios as $municipio): ?>
+    <option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
+    <?php endforeach ?>
+  </select>
+</div>
+<div class="form-group">
+  
+  <select name="parroquia" id="parroquia"class="form-control" required>
+  </select>
+</div>
+<br>
+<h4>Responsable Bodega CLAP</h4>
+<select style="width: 8%;" name="tipo_r" required="required">
+  <option value="V" selected="selected" >V</option>
+  <option value="E">E</option>
+</select>
+<br>
+<br>
+<input style="width: 100%;" name="cedula_r" type="number" placeholder="Cedula del Bodeguero" required >
+<br>
+<br>
+<input style="width: 100%;" name="responsable" type="text" placeholder="Nombres y Apellidos del Bodeguero" onChange="javascript:this.value=this.value.toUpperCase();" required >
+<br>
+<br>
+<input style="width: 100%;" name="telefono_r" type="number" placeholder="Teléfono del Bodeguero" required>
+<hr>
+<button class="btn btn-success pull-right" type="submit">
+Guardar <i class="fa fa-save"></i></button>
+</form>
+<?php endif ?>
+<?php else: ?>
+<form action="integrantes_clap_guardar.php" method="GET">
+<input type="hidden" name="sector_id" value="<?php echo $sector->id ?>">
+<input type="hidden" name="zona_id" value="<?php echo $zona->id ?>">
+<input type="hidden" name="municipio" value="<?php echo $muni->id ?>">
+<input type="hidden" name="parroquia" value="<?php echo $parro->id ?>">
+<input type="hidden" name="e_cadip" value="<?php echo $e_cadip ?>">
+<input type="hidden" name="e_clap" value="<?php echo $clap_existe ?>">
+<input type="hidden" name="c_municipio" value="<?php echo $igual_municipio ?>">
+<input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
+<input type="hidden" name="c_cargo" value="<?php echo $c_cargo ?>">
+<br>
+<h4>Integrante CLAP</h4>
+<div class="form-group">
+  <select style="width: 8%;" name="tipo_c" required="required">
     <option value="V" selected="selected" >V</option>
     <option value="E">E</option>
   </select>
   <br>
   <br>
-  <input style="width: 100%;" name="cedula_r" value="<?php echo $bodega_responsable_cedula ?>" type="number" placeholder="Cedula del Bodeguero" required >
+  <input style="width: 100%;" readonly name="cedula" type="number" placeholder="Cedula del Integrante" value="<?php echo $cedula ?>">
   <br>
   <br>
-  <input style="width: 100%;" name="responsable" value="<?php echo $bodega_responsable_nombre ?>" type="text" placeholder="Nombres y Apellidos del Bodeguero" onChange="javascript:this.value=this.value.toUpperCase();" required >
+  <input style="width: 100%;" readonly name="nombre_a" type="text" placeholder="Nombres y Apellidos del Integrante" onChange="javascript:this.value=this.value.toUpperCase();" value="<?php echo $nombre_y_apellido ?>" >
   <br>
   <br>
-  <input style="width: 100%;" name="telefono_r" value="<?php echo $bodega_responsable_telefono ?>" type="number" placeholder="Teléfono del Bodeguero" required>
-  <hr>
-  <button class="btn btn-success pull-right" type="submit">
-  Guardar <i class="fa fa-save"></i></button>
-  
+  <div class="form-group">
+    <?php $municipios = Municipio::all(); ?>
+    <select name="municipio_int" id="municipioB"class="form-control" required>
+      <?php if ($municipio_int): ?>
+      <?php $municipio_int_nombre = Municipio::where('id_municipio',$municipio_int)->first(); ?>
+      <option value="<?php echo $municipio_int ?>"><?php echo $municipio_int_nombre->nombre_municipio ?></option>
+    <optgroup label='-------'></optgroup>
+    <?php endif ?>
+    <?php foreach ($municipios as $municipio): ?>
+    <option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
+    <?php endforeach ?>
+  </select>
+</div>
+<div class="form-group">
+  <select name="parroquia_int" id="parroquiaB"class="form-control" value="<?php echo $parroquia ?>" required>
+    <?php if ($parroquia_int): ?>
+    <?php $parroquia_int_nombre = Parroquia::where('id_parrouia',$parroquia_int)->first(); ?>
+    <option value="<?php echo $parroquia_int ?>"><?php echo $parroquia_int_nombre->nombre_parroquia ?></option>
+    <?php endif ?>
+  </select>
+</div>
+<input style="width: 100%;" name=" telefono" type="text" placeholder="Teléfono del Integrante" value="<?php echo $telefono ?>" >
+<br>
+<br>
+<select name="jefe_carga" id="">
+  <?php if ($jefe): ?>
+  <option value="1">JEFE</option>
+  <?php elseif ($familia): ?>
+  <option value="2">CARGA</option>
+  <?php else:  ?>
+  <option value="">NO EXISTE</option>
+  <?php endif ?>
+</select>
+<br>
+<br>
+<select id="selectcargo" name="cargo_clap" id="" required>
+  <?php if ($cargo): ?>
+  <option value="<?php echo $cargo->id ?>"><?php echo $cargo->cargo ?></option>
+<optgroup label='-------'></optgroup>
+<?php endif ?>
+<?php foreach ($cargos as $ca): ?>
+<option value="<?php echo $ca->id ?>"><?php echo $ca->cargo ?></option>
+<?php endforeach ?>
+</select>
+<br>
+<br>
+<h4>Bodega CLAP</h4>
+<input style="width: 100%;" name="cod_bodega" type="text" value="<?php echo $bodega_id ?>" placeholder="Código de la Bodega" onChange="javascript:this.value=this.value.toUpperCase();" >
+<br>
+<br>
+<select style="width: 8%;" name="tipo_b" required="required">
+<?php if ($bodega_tipo_b): ?>
+<option value="<?php echo $bodega_tipo_b ?>"><?php echo $bodega_tipo_b ?></option>
+<?php else: ?>
+<option value="J" selected="selected" >J</option>
+<option value="V">V</option>
+<option value="E">E</option>
+<option value="G">G</option>
+<option value="P">P</option>
+<?php endif ?>
+</select>
+<br>
+<br>
+<input style="width: 100%;" name="rif_b" value="<?php echo $bodega_rif ?>" type="number" placeholder="RIF de la Bodega" required >
+<br>
+<br>
+<input style="width: 100%;" name="razon_social" value="<?php echo $bodega_razon_social ?>" type="text" placeholder="Nombre de la Bodega (RAZÓN SOCIAL)" onChange="javascript:this.value=this.value.toUpperCase();" requiered >
+</div>
+<div class="form-group">
+<?php $municipios = Municipio::all(); ?>
+<select name="municipio" id="municipio"class="form-control" required>
+<?php if ($bodega_municipio): ?>
+<?php $municipio_bode = Municipio::where('id_municipio',$bodega_municipio)->first(); ?>
+<option value="<?php echo $bodega_municipio ?>"><?php echo $municipio_bode->nombre_municipio ?></option selected>
+<?php else: ?>
+<?php foreach ($municipios as $municipio): ?>
+<option value="<?php echo $municipio->id_municipio ?>"><?php echo $municipio->nombre_municipio ?></option>
+<?php endforeach ?>
+<?php endif ?>
+</select>
+</div>
+<div class="form-group">
+<select name="parroquia" id="parroquia"class="form-control" required>
+<?php if ($bodega_parroquia): ?>
+<?php $parroquia_bode = Parroquia::where('id_parrouia',$bodega_parroquia)->first(); ?>
+<option value="<?php echo $bodega_parroquia ?>"><?php echo $parroquia_bode->nombre_parroquia ?></option>
+<?php endif ?>
+</select>
+</div>
+<br>
+<h4>Responsable Bodega CLAP</h4>
+<select style="width: 8%;" name="tipo_r" required="required">
+<option value="V" selected="selected" >V</option>
+<option value="E">E</option>
+</select>
+<br>
+<br>
+<input style="width: 100%;" name="cedula_r" value="<?php echo $bodega_responsable_cedula ?>" type="number" placeholder="Cedula del Bodeguero" required >
+<br>
+<br>
+<input style="width: 100%;" name="responsable" value="<?php echo $bodega_responsable_nombre ?>" type="text" placeholder="Nombres y Apellidos del Bodeguero" onChange="javascript:this.value=this.value.toUpperCase();" required >
+<br>
+<br>
+<input style="width: 100%;" name="telefono_r" value="<?php echo $bodega_responsable_telefono ?>" type="number" placeholder="Teléfono del Bodeguero" required>
+<hr>
+<button class="btn btn-success pull-right" type="submit">
+Guardar <i class="fa fa-save"></i></button>
+
 </form>
 <?php endif ?>
 <?php endif ?>
@@ -729,5 +760,12 @@ else
 </div>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>
+
+$('#theSelect').on('click',function(ev){
+  $("#someInput").val(1);
+});
+    </script>
 </body>
 </html>
