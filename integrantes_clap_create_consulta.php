@@ -103,9 +103,14 @@ $zona  = ClapZona::where('id', $zona_id)->first();
           <div class="pull-left">
             <a href="integrantes_clap_busqueda.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&sector_id=<?php echo $sector->id ?>&zona_id=<?php echo $zona->id ?>" class="fa fa-arrow-left fa-3x"></a>
           </div>
+
+          <div class="pull-right">
+            <a href="sector_form.php" class="fa fa-home fa-3x"></a>
+          </div>
+
           <h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Integrantes CLAP</h4>
           <br>
-        <pre><?php echo $muni->nombre_municipio ?>, <?php echo $parro->nombre_parroquia ?>, <?php echo $sector->sector ?>, <?php echo $zona->comunidad ?></pre>
+        <pre><?php echo $muni->nombre_municipio ?>, <?php echo $parro->nombre_parroquia ?>, SECTOR: <?php echo $sector->sector ?>, COMUNIDAD: <?php echo $zona->comunidad ?></pre>
         <form action="integrantes_clap_create.php" method="GET">
           <input type="hidden" name="sector_id" value="<?php echo $sector->id ?>">
           <input type="hidden" name="zona_id" value="<?php echo $zona->id ?>">

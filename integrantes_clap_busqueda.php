@@ -38,12 +38,17 @@ $zona  = ClapZona::where('id', $zona_id)->first();
     <script src="assets/js/jquery.min.js"></script>
     <br>
     <div class="col-xs-12 col-md-12 col-sm-12 panel panel-default">
+    </div>
+        <div class="pull-right">
+        <a href="sector_form.php" class="fa fa-home fa-3x"></a>
+      </div>
       <div class="pull-left">
         <a href="zona_clap_busqueda.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $sector_id ?>" class="fa fa-arrow-left fa-3x"></a>
       </div>
+
       <h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Integrantes CLAPS</h4>
       <hr>
-    <pre><?php echo $muni->nombre_municipio; ?>, <?php echo $parro->nombre_parroquia; ?>, SECTOR <?php echo $sector->sector ?>, COMUNIDAD <?php echo $zona->comunidad ?> </pre>
+    <pre><?php echo $muni->nombre_municipio; ?>, <?php echo $parro->nombre_parroquia; ?>, SECTOR: <?php echo $sector->sector ?>, COMUNIDAD: <?php echo $zona->comunidad ?> </pre>
     <hr>
     <form action="sector_guardar.php" method="GET">
       <input type="hidden" name="municipio" value="<?php echo $municipio ?>">
@@ -68,7 +73,7 @@ $zona  = ClapZona::where('id', $zona_id)->first();
           <th>id</th>
           <th>Tipo</th>
           <th>Cedula</th>
-          <th>¿Existe en CADIP?</th>
+          <th>CLAP</th>
           <th>Nombres y Apellidos</th>
           <th>Teléfono</th>
           <th>¿Jefe ó Carga?</th>

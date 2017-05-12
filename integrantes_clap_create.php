@@ -61,9 +61,11 @@ $nombre_y_apellido = $jefe->nombre_apellido;
 $telefono = $jefe->telefono;
 $municipio_int = $jefe->cod_municipio;
 $parroquia_int = $jefe->cod_parroquia;
-$e_cadip = 1;
+$e_cadip = 1; 
 $claps = Clap2::where('cedula',$cedula)->first();
 $bodega = Bodega::find($jefe->bodega);
+$sector_integrante = $jefe->sector;
+$clap_codigo = $jefe->clap_codigo;
   if($claps)
   {
   $cargo = Cargo::where('id',$claps->cargo_id)->first();
@@ -94,6 +96,7 @@ $e_cadip = 1;
 $claps = Clap2::where('cedula',$cedula)->first();
 $bodega_jefe = Jefe::where('cedula',$familia->cod_cabeza_familia)->first();
 $bodega = Bodega::find($bodega_jefe->bodega);
+$sector_integrante = $bodega_jefe->sector;
 //Krumo::dump($bodega);
   if($claps)
   {
@@ -124,6 +127,7 @@ $cargo = "";
 $clap_existe = 0;
 $bodega = "";
 $c_cargo = 0;
+$sector_integrante = "";
 }
 }
 }
@@ -294,7 +298,7 @@ $c_cargo = 0;
           </div>
           <h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Integrantes CLAP</h4>
           <br>
-        <pre><?php echo $muni->nombre_municipio ?>, <?php echo $parro->nombre_parroquia ?>, SECTOR <?php echo $sector->sector ?>, COMUNIDAD <?php echo $zona->comunidad ?></pre>
+        <pre><?php echo $muni->nombre_municipio ?>, <?php echo $parro->nombre_parroquia ?>, SECTOR:  <?php echo $sector->sector ?>, COMUNIDAD: <?php echo $zona->comunidad ?></pre>
         <?php if($registrado == true): ?>
         <div class="alert alert-success">
           <strong>Integrante encontrado en SECTORES CLAP!</strong>
@@ -352,15 +356,6 @@ $c_cargo = 0;
         </div>
         <?php endif ?>
         
-        <?php if($c_bodega == false): ?>
-        <div class="alert alert-warning">
-          <strong>NO coinciden el SECTOR CLAP con la BODEGA CADIP!</strong>
-        </div>
-        <?php else: ?>
-        <div class="alert alert-success">
-          <strong>SI coinciden el SECTOR CLAP con la BODEGA CADIP!</strong>
-        </div>
-        <?php endif ?>
         <?php endif ?>
         <?php if ($registrado == true): ?>
         
@@ -379,6 +374,7 @@ $c_cargo = 0;
           <input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
           <input type="hidden" name="c_bodega" value="<?php echo $c_bodega ?>">
           <input type="hidden" name="c_cargo" value="<?php echo $c_cargo ?>">
+          <input type="hidden" name="sector_integrante" value="<?php echo $sector_integrante ?>">
           <br>
           <h4>Integrante CLAP</h4>
           <div class="form-group">
@@ -514,7 +510,8 @@ $c_cargo = 0;
     <input type="hidden" name="c_municipio" value="<?php echo $igual_municipio ?>">
     <input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
     <input type="hidden" name="c_bodega" value="<?php echo $c_bodega ?>">
-      <input type="hidden" name="c_cargo" value="<?php echo $c_cargo ?>">
+    <input type="hidden" name="c_cargo" value="<?php echo $c_cargo ?>">
+    <input type="hidden" name="sector_integrante" value="<?php echo $sector_integrante ?>">
     <br>
 
 <br />
@@ -629,6 +626,7 @@ Guardar <i class="fa fa-save"></i></button>
 <input type="hidden" name="c_municipio" value="<?php echo $igual_municipio ?>">
 <input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
 <input type="hidden" name="c_cargo" value="<?php echo $c_cargo ?>">
+<input type="hidden" name="sector_integrante" value="<?php echo $sector_integrante ?>">
 <br>
 <h4>Integrante CLAP</h4>
 <div class="form-group">

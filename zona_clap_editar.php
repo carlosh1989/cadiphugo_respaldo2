@@ -60,7 +60,7 @@ $zona = ClapZona::where('id',$id_zona)->first();
 				</div>
 				<h4 class="text-center text-muted"><a class="fa fa-map-marker fa-2x" href=""></a> Sectores CLAP</h4>
 				<br>
-			<pre><?php echo $zona->sector->municipio->nombre_municipio ?>, <?php echo $zona->sector->parroquia->nombre_parroquia ?>, <?php echo $zona->sector->sector ?></pre>
+			<pre><?php echo $zona->sector->municipio->nombre_municipio ?>, <?php echo $zona->sector->parroquia->nombre_parroquia ?>, SECTOR: <?php echo $zona->sector->sector ?></pre>
 			<form action="zona_clap_editar_guardar.php" method="GET">
 				<div class="form-group form-group-lg">
 					<input type="hidden" name="zona_id" value="<?php echo $zona->id ?>">

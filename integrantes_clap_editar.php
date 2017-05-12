@@ -103,7 +103,7 @@ $integrante = Integrantes::where('id',$id_integrante)->first();
 					</div>
 					<h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Editar Integrante CLAP</h4>
 					<br>
-					<pre><?php echo $integrante->sector->municipio->nombre_municipio ?>, <?php echo $integrante->sector->parroquia->nombre_parroquia ?>, SECTOR <?php echo $integrante->sector->sector ?></pre>
+					<pre><?php echo $integrante->sector->municipio->nombre_municipio ?>, <?php echo $integrante->sector->parroquia->nombre_parroquia ?>, SECTOR: <?php echo $integrante->sector->sector ?></pre>
 				<form action="integrantes_clap_editar_guardar.php" method="POST	">
 					<div class="form-group">
 						<input type="hidden" name="integrante_id" value="<?php echo $integrante->id ?>">

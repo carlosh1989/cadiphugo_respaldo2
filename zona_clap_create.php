@@ -122,11 +122,11 @@ $(document).ready(function(){
   <div role="tabpanel" class="tab-pane fade in active" id="jefe">
   	  <div class="col-xs-6 col-md-6 col-md-offset-3 col-sm-12 panel panel-default">
 <div class="pull-left">
-  <a href="sector_busqueda.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $id ?>" class="fa fa-arrow-left fa-3x"></a>
+  <a href="zona_clap_busqueda.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $id ?>" class="fa fa-arrow-left fa-3x"></a>
 </div>
 		<h4 class="text-center text-muted"><a class="fa fa-map-marker fa-2x" href=""></a> Sectores CLAP</h4>
     <br>
-    <pre><?php echo $municipio_actual->nombre_municipio ?>, <?php echo $parroquia_actual->nombre_parroquia ?>, <?php echo $sector->sector ?></pre>
+    <pre><?php echo $municipio_actual->nombre_municipio ?>, <?php echo $parroquia_actual->nombre_parroquia ?>, SECTOR: <?php echo $sector->sector ?></pre>
 		<form action="zona_clap_guardar.php" method="GET">
 
 <input type="hidden" name="sector_id" value="<?php echo $id ?>">

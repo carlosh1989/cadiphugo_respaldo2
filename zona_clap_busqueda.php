@@ -39,9 +39,12 @@ $sector  = Sector::where('id', $id)->first();
       <div class="pull-left">
         <a href="sector_busqueda.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $id ?>" class="fa fa-arrow-left fa-3x"></a>
       </div>
+        <div class="pull-right">
+        <a href="sector_form.php" class="fa fa-home fa-3x"></a>
+      </div>
       <h4 class="text-center text-muted"><a class="fa fa-map-marker fa-2x" href=""></a> Zonas CLAPS</h4>
       <hr>
-    <pre><?php echo $muni->nombre_municipio; ?>, <?php echo $parro->nombre_parroquia; ?>, <?php echo $sector->sector ?></pre>
+    <pre><?php echo $muni->nombre_municipio; ?>, <?php echo $parro->nombre_parroquia; ?>, SECTOR: <?php echo $sector->sector ?></pre>
     <hr>
     <form action="sector_guardar.php" method="GET">
       <input type="hidden" name="municipio" value="<?php echo $municipio ?>">
