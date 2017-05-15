@@ -65,12 +65,13 @@ $e_cadip = 1;
 $claps = Clap2::where('cedula',$cedula)->first();
 $bodega = Bodega::find($jefe->bodega);
 $sector_integrante = $jefe->sector;
-$clap_codigo = $jefe->clap_codigo;
+$clap_codigo = $jefe->clap;
   if($claps)
   {
   $cargo = Cargo::where('id',$claps->cargo_id)->first();
   $clap_existe = 1;
   $c_cargo = 1;
+
   }
   else
   {
@@ -98,11 +99,11 @@ $bodega_jefe = Jefe::where('cedula',$familia->cod_cabeza_familia)->first();
 $bodega = Bodega::find($bodega_jefe->bodega);
 $sector_integrante = $bodega_jefe->sector;
 //Krumo::dump($bodega);
+$clap_codigo = $familia->clap;
   if($claps)
   {
   $cargo = Cargo::where('id',$claps->cargo_id)->first();
   $clap_existe = 1;
-
   $c_cargo = 1;
   }
   else
@@ -125,6 +126,7 @@ $parroquia_int = "";
 $e_cadip = 0;
 $cargo = "";
 $clap_existe = 0;
+$cod_clap = "";
 $bodega = "";
 $c_cargo = 0;
 $sector_integrante = "";
@@ -374,7 +376,8 @@ $c_cargo = 0;
           <input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
           <input type="hidden" name="c_bodega" value="<?php echo $c_bodega ?>">
           <input type="hidden" name="c_cargo" value="<?php echo $c_cargo ?>">
-          <input type="hidden" name="sector_integrante" value="<?php echo $sector_integrante ?>">
+          <input type="hidden" name="sector_integrante" value='<?php echo $sector_integrante ?>'>
+          <input type="hidden" name="cod_clap" value="<?php echo $clap_codigo ?>">
           <br>
           <h4>Integrante CLAP</h4>
           <div class="form-group">
@@ -511,7 +514,8 @@ $c_cargo = 0;
     <input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
     <input type="hidden" name="c_bodega" value="<?php echo $c_bodega ?>">
     <input type="hidden" name="c_cargo" value="<?php echo $c_cargo ?>">
-    <input type="hidden" name="sector_integrante" value="<?php echo $sector_integrante ?>">
+    <input type="hidden" name="sector_integrante" value='<?php echo $sector_integrante ?>'>
+    <input type="hidden" name="cod_clap" value="<?php echo $clap_codigo ?>">
     <br>
 
 <br />
@@ -626,7 +630,8 @@ Guardar <i class="fa fa-save"></i></button>
 <input type="hidden" name="c_municipio" value="<?php echo $igual_municipio ?>">
 <input type="hidden" name="c_parroquia" value="<?php echo $igual_parroquia ?>">
 <input type="hidden" name="c_cargo" value="<?php echo $c_cargo ?>">
-<input type="hidden" name="sector_integrante" value="<?php echo $sector_integrante ?>">
+<input type="hidden" name="sector_integrante" value='<?php echo $sector_integrante ?>'>
+<input type="hidden" name="cod_clap" value="<?php echo $clap_codigo ?>">
 <br>
 <h4>Integrante CLAP</h4>
 <div class="form-group">

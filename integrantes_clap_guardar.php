@@ -23,18 +23,26 @@ $parro = Parroquia::where('id_parrouia', $parroquia)->first();
 $sector  = Sector::where('id', $sector_id )->first();
 $zona  = ClapZona::where('id', $zona_id)->first();
 $clap = Clap2::where('cedula',$cedula)->first();
-$clap_sector = Clap2::where('cedula',$cedula)->where('comunidad', 'LIKE', '%'.$sector_integrante.'%')->first();
+//$clap_sector = Clap2::where('cedula',$cedula)->where('comunidad', 'LIKE', '%'.$sector_integrante.'%')->first();
 
-if($cargo_clap == $clap->cargo_id)
+if($clap)
 {
-	$c_cargo = 1;
+	if($cargo_clap == $clap->cargo_id)
+	{
+		$c_cargo = 1;
+	}
+	else
+	{
+		$c_cargo = 0;
+	}
 }
 else
 {
 	$c_cargo = 0;
 }
 
-if ($clap_sector) 
+
+/*if ($clap_sector) 
 {
 	echo "si tiene clap_sector";
 	echo "<hr>";
@@ -44,14 +52,14 @@ else
 	echo "no tiene clap_sector";
 	echo "<hr>";
 }
+*/
 
-
-echo $sector_integrante;
+/*echo $sector_integrante;
 echo "<hr>";
 echo $clap->comunidad;
-echo "<hr>";
+echo "<hr>";*/
 
-/*
+
 $create = Integrantes::create([
 	'sector_id'		 => $sector_id,
 	'zona_id'		 => $zona_id,
@@ -66,6 +74,7 @@ $create = Integrantes::create([
 	'telefono'		 => $telefono,
 	'jefe_carga'	 => $jefe_carga,
 	'cargo_clap'     => $cargo_clap,
+	'cod_clap'		 => $cod_clap,
 	'cod_bodega'	 => $cod_bodega,
 	'tipo_b'		 => $tipo_b,
 	'rif_b'			 => $rif_b,
@@ -83,5 +92,5 @@ $create = Integrantes::create([
 
 header("Location: integrantes_clap_busqueda.php?municipio=".$municipio."&parroquia=".$parroquia."&sector_id=".$sector->id."&zona_id=".$zona->id.""); 
 
-exit();*/
+exit();
 ?>
