@@ -56,6 +56,9 @@ $zona  = ClapZona::where('id', $zona_id)->first();
       <div class="col-xs-2 col-md-2 col-sm-12 panel">
         <a href="integrantes_clap_create_consulta.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $sector_id ?>&zona_id=<?php echo $zona->id ?>&sector_id=<?php echo $sector->id ?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Integrante CLAP</a>
       </div>
+      <div class="col-xs-2 col-md-2 col-sm-12">
+             <a href="integrantes_clap_excel.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $sector_id ?>&zona_id=<?php echo $zona->id ?>&sector_id=<?php echo $sector->id ?>" class="btn btn-danger"><i class="fa fa-table"></i> Reporte EXCEL</a>
+      </div>
     </form>
     <hr>
     <table class="table">
