@@ -88,9 +88,9 @@ $sector  = Sector::where('id', $id)->first();
           <td><a class="btn btn-info text-success fa fa-pencil" href="zona_clap_editar.php?id_zona=<?php echo $s->id ?>"></a></td>
           <td><a onclick="return confirm('Esta seguro que quiere borrar Zona CLAP?')" class="btn btn-danger text-danger fa fa-times-circle" href="zona_clap_eliminar.php?zona_id=<?php echo $s->id ?>"></a></td>
           <td>
-              <a href="integrantes_clap_excel.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $id ?>" class="btn btn-success"><i class="fa fa-table"> Excel</i></a>
+              <a href="integrantes_clap_excel.php?zona_id=<?php echo $s->id ?>" class="btn btn-success"><i class="fa fa-table"></i> Excel</a>
           
-              <a href="integrantes_clap_excel.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $id ?>" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> PDF</a>
+              <a href="integrantes_clap_pdf.php?zona_id=<?php echo $s->id ?>" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> PDF</a>
           </td>
         </tr>
         <?php endforeach ?>

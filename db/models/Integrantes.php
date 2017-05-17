@@ -1,5 +1,6 @@
 <?php 
 namespace Models;
+use Models\Cargo;
 use Models\Sector;
 use \Illuminate\Database\Eloquent\Model;
  
@@ -23,5 +24,10 @@ class Integrantes extends Model {
     public function intparroquia()
     {
     	return $this->hasOne(Parroquia::class,'id_parrouia','parroquia_int');
+    }
+
+    public function cargo()
+    {
+    	return $this->hasOne(Cargo::class,'id','cargo_clap');
     }
 }
