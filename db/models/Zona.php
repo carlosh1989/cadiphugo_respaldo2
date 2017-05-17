@@ -1,5 +1,7 @@
 <?php 
 namespace Models;
+use Models\Bodega;
+use Models\Integrantes;
 use Models\Sector;
 use \Illuminate\Database\Eloquent\Model;
  
@@ -18,6 +20,16 @@ class ClapZona extends Model {
 	public function integrantes_clap()
 	{
 	    return $this->hasMany(Integrantes::class, 'zona_id', 'id');
+	}
+
+	public function bodega()
+	{
+		return $this->hasOne(Bodega::class, 'id','cod_bodega');
+	}
+
+	public function sector_clap()
+	{
+		return $this->hasOne(Sector::class, 'id','sector_id');
 	}
 }
 

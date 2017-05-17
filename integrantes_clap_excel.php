@@ -5,63 +5,152 @@ $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 use DB\Eloquent;
 use Models\ClapZona;
-use Models\Municipio;
-use Models\Parroquia;
-use Models\Sector;
 new Eloquent();
 extract($_GET);
 extract($_POST);
-$muni = Municipio::where('id_municipio', $municipio)->first();
-$parro = Parroquia::where('id_parrouia', $parroquia)->first();
-$sector  = Sector::where('id', $sector_id)->first();
 $zona  = ClapZona::where('id', $zona_id)->first();
 
 $Excel = array();
 
 $array = Array (
         0 => Array (
-          "id",
-          "tipo",
-          "cedula",          
-          "nombre apellido",
-          "telefono",
-          "clap",
-          "bodega",
-          "tipo b",
-          "rif b",
-          "razon_social",
-          "municipio",
-          "parroquia",
+          "Código CLAP",
+          $zona->cod_clap,
         ),
 );
-/*
+
+$Excel = array_merge($Excel,$array);
+
 $array = Array (
-  0 => Array (
-          "id",
-          "tipo",
-          "cedula",          
-          "nombre apellido",
-          "telefono",
-          "clap",
-          "bodega",
-          "tipo b",
-          "rif b",
-          "razon_social",
-          "municipio",
-          "parroquia",
-          ),
-    ),
+        0 => Array (
+          "", 
+        ),
 );
-*/
+
+$array = Array (
+        0 => Array (
+          "Nombre del CLAP",
+          $zona->nombre_clap,
+        ),
+);
+
+$Excel = array_merge($Excel,$array);
+
+$array = Array (
+        0 => Array (
+          "", 
+        ),
+);
+
+$array = Array (
+        0 => Array (
+          "Razon social",
+          $zona->bodega->rason_social,
+        ),
+);
+
+$Excel = array_merge($Excel,$array);
+
+$array = Array (
+        0 => Array (
+          "", 
+        ),
+);
+
+$array = Array (
+        0 => Array (
+          "Responsable de la Bodega",
+          $zona->bodega->responsable,
+        ),
+);
+
+$Excel = array_merge($Excel,$array);
+
+$array = Array (
+        0 => Array (
+          "", 
+        ),
+);
+
+$array = Array (  
+        0 => Array (
+          "Municipio",
+          $zona->bodega->municipio->nombre_municipio,
+        ),
+);
+
+$Excel = array_merge($Excel,$array);
+
+$array = Array (
+        0 => Array (
+          "", 
+        ),
+);
+
+
+$array = Array (
+        0 => Array (
+          "Parroquia",
+          $zona->bodega->parroquia->nombre_parroquia,
+        ),
+);
+
+$Excel = array_merge($Excel,$array);
+
+$array = Array (
+        0 => Array (
+          "", 
+        ),
+);
+
+$array = Array (
+        0 => Array (
+          "Sector",
+          $zona->sector_clap->sector,
+        ),
+);
+
+$Excel = array_merge($Excel,$array);
+
+$array = Array (
+        0 => Array (
+          "", 
+        ),
+);
+
+$Excel = array_merge($Excel,$array);
+
+$array = Array (
+        0 => Array (
+          "", 
+        ),
+);
+
+$array = Array (
+        0 => Array (
+          "Id",
+          "Tipo",
+          "Cedula",          
+          "Nombre y Apellido",
+          "Teléfono",
+          "Tipo",
+          "RIF Bodega",
+          "Nombre Bodega",
+          "Municipio",
+          "Parroquia",
+          "Tipo",
+          "Cedula",
+          "Teléfono",
+        ),
+);
+
+
 $Excel = array_merge($Excel,$array);
 
 //Krumo::dump($zona->integrantes_clap()->where('eliminar', '<', 1)->get());
 
 foreach ($zona->integrantes_clap()->where('eliminar', '<', 1)->get() as $key => $int) 
 {
-  $intmunicipio = Municipio::where('id_municipio',$int->municipio_int)->first();
-  $intparroquia = Parroquia::where('id_parrouia',$int->parroquia_int)->first();
-
   $array = Array (
           0 => Array (
           $int->id,
@@ -74,8 +163,12 @@ foreach ($zona->integrantes_clap()->where('eliminar', '<', 1)->get() as $key => 
           $int->tipo_b,
           $int->rif_b,
           $int->razon_social,
-          $intmunicipio->nombre_municipio,
-          $intparroquia->nombre_parroquia,
+          $int->intmunicipio->nombre_municipio,
+          $int->intparroquia->nombre_parroquia,
+          $int->tipo_r,
+          $int->cedula_r,
+          $int->responsable,
+          $int->telefono_r,
           ),
   );
   $Excel = array_merge($Excel,$array);

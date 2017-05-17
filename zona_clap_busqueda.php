@@ -7,7 +7,7 @@ use DB\Eloquent;
 use Models\Municipio;
 use Models\Parroquia;
 use Models\Sector;
-new Eloquent();
+new Eloquent(); 
 extract($_GET);
 extract($_POST);
 $muni = Municipio::where('id_municipio', $municipio)->first();
@@ -35,7 +35,7 @@ $sector  = Sector::where('id', $id)->first();
     <!-- Compiled and minified JavaScript -->
     <script src="assets/js/jquery.min.js"></script>
     <br>
-    <div class="col-xs-6 col-md-6 col-md-offset-3 col-sm-12 panel panel-default">
+    <div class="col-xs-10 col-md-10 col-md-offset-1 col-sm-12 panel panel-default">
       <div class="pull-left">
         <a href="sector_busqueda.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $id ?>" class="fa fa-arrow-left fa-3x"></a>
       </div>
@@ -65,8 +65,9 @@ $sector  = Sector::where('id', $id)->first();
           <th>Codigo CADIP</th>
           <th>Consolidado</th>
           <th>Integrantes CLAP</th>
-          <th align="center">editar</th>
-          <th align="center">eliminar</th>
+          <th align="center">Editar</th>
+          <th align="center">Eliminar</th>
+          <th align="center">Reportes CLAP'S</th>                    
         </tr>
       </thead>
       <tbody>
@@ -86,6 +87,11 @@ $sector  = Sector::where('id', $id)->first();
           </td>
           <td><a class="btn btn-info text-success fa fa-pencil" href="zona_clap_editar.php?id_zona=<?php echo $s->id ?>"></a></td>
           <td><a onclick="return confirm('Esta seguro que quiere borrar Zona CLAP?')" class="btn btn-danger text-danger fa fa-times-circle" href="zona_clap_eliminar.php?zona_id=<?php echo $s->id ?>"></a></td>
+          <td>
+              <a href="integrantes_clap_excel.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $id ?>" class="btn btn-success"><i class="fa fa-table"> Excel</i></a>
+          
+              <a href="integrantes_clap_excel.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $id ?>" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> PDF</a>
+          </td>
         </tr>
         <?php endforeach ?>
       </tbody>

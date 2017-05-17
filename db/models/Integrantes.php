@@ -14,4 +14,14 @@ class Integrantes extends Model {
 	{
 		return $this->belongsTo(Sector::class, 'sector_id', 'id');
 	}
+
+    public function intmunicipio()
+    {
+    	return $this->hasOne(Municipio::class,'id_municipio','municipio_int');
+    }
+
+    public function intparroquia()
+    {
+    	return $this->hasOne(Parroquia::class,'id_parrouia','parroquia_int');
+    }
 }
