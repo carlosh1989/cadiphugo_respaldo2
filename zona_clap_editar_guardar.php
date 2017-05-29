@@ -17,6 +17,7 @@ $zona->nombre_clap = $nombre_clap;
 $zona->cod_clap = $cod_clap;
 $zona->cod_cadip = $cod_cadip;
 $zona->consolidado = $consolidado;
+$zona->subsector = $subsector;
 $zona->comunidad = $comunidad;
 $zona->cod_bodega = $cod_bodega;
 $zona->save();

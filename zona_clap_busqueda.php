@@ -1,4 +1,4 @@
-<?php
+  <?php
 require __DIR__ . '/vendor/autoload.php';
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
@@ -42,7 +42,7 @@ $sector  = Sector::where('id', $id)->first();
         <div class="pull-right">
         <a href="sector_form.php" class="fa fa-home fa-3x"></a>
       </div>
-      <h4 class="text-center text-muted"><a class="fa fa-map-marker fa-2x" href=""></a> Zonas CLAPS</h4>
+      <h4 class="text-center text-muted"><a class="fa fa-map-marker fa-2x" href=""></a> Zonas CLAP'S</h4>
       <hr>
     <pre><?php echo $muni->nombre_municipio; ?>, <?php echo $parro->nombre_parroquia; ?>, SECTOR: <?php echo $sector->sector ?></pre>
     <hr>
@@ -59,15 +59,18 @@ $sector  = Sector::where('id', $id)->first();
         <tr>
           <th>id</th>
           <th>Nombre CLAP</th>
+          <th>Sub-Sector</th>          
           <th>Comunidad</th>
           <th>Codigo CLAP</th>
           <th>Codigo Bodega</th>
           <th>Codigo CADIP</th>
           <th>Consolidado</th>
-          <th>Integrantes CLAP</th>
+          <th>Integrantes Oficiales</th>
+          <th>Integrantes Planillas</th>
           <th align="center">Editar</th>
           <th align="center">Eliminar</th>
-          <th align="center">Reportes CLAP'S</th>                    
+          <th colspan="2"> &nbsp; &nbsp; &nbsp; Reporte CLAP'S</th>                
+
         </tr>
       </thead>
       <tbody>
@@ -75,21 +78,37 @@ $sector  = Sector::where('id', $id)->first();
         <tr>
           <td><?php echo $s->id; ?></td>
           <td><?php echo $s->nombre_clap ?></td>
+          <td><?php echo $s->subsector ?></td>
           <td><?php echo $s->comunidad ?></td>
           <td><?php echo $s->cod_clap ?></td>
           <td><?php echo $s->cod_bodega ?></td>
           <td><?php echo $s->cod_cadip ?></td>
-          <td><?php echo $s->consolidado ?></td>
           <td>
-      
-            <a href="integrantes_clap_busqueda.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&sector_id=<?php echo $s->sector_id ?>&zona_id=<?php echo $s->id ?>" class="btn btn-primary fa fa-search fa-2x"></a>
-        
+                 <?php
+                    if($s->consolidado == true)
+                      {
+                      $consolidado = "CLAP Consolidado";
+                      }
+                    else
+                      {
+                      $consolidado = "CLAP NO Consolidado";
+                      }
+                  ?>
+              <?php echo $consolidado ?>
           </td>
-          <td><a class="btn btn-info text-success fa fa-pencil" href="zona_clap_editar.php?id_zona=<?php echo $s->id ?>"></a></td>
-          <td><a onclick="return confirm('Esta seguro que quiere borrar Zona CLAP?')" class="btn btn-danger text-danger fa fa-times-circle" href="zona_clap_eliminar.php?zona_id=<?php echo $s->id ?>"></a></td>
-          <td>
+          <td align="center">
+            <a href="integrantes_clap_busqueda_oficiales.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&sector_id=<?php echo $s->sector_id ?>&zona_id=<?php echo $s->id ?>" class="btn btn-success fa fa-address-card-o fa-2x"></a>
+          </td>
+          <td align="center">
+            <a href="integrantes_clap_busqueda_planilla.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&sector_id=<?php echo $s->sector_id ?>&zona_id=<?php echo $s->id ?>" class="btn btn-primary fa fa-address-card fa-2x"></a>
+          </td> 
+          <td align="center"><a class="btn btn-info text-success fa fa-pencil" href="zona_clap_editar.php?id_zona=<?php echo $s->id ?>"></a></td>
+          <td align="center"><a onclick="return confirm('Esta seguro que quiere borrar Zona CLAP?')" class="btn btn-danger text-danger fa fa-times-circle" href="zona_clap_eliminar.php?zona_id=<?php echo $s->id ?>"></a></td>
+          <td align="center">
               <a href="integrantes_clap_excel.php?zona_id=<?php echo $s->id ?>" class="btn btn-success"><i class="fa fa-table"></i> Excel</a>
+          </td>
           
+          <td align="center">
               <a href="integrantes_clap_pdf.php?zona_id=<?php echo $s->id ?>" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> PDF</a>
           </td>
         </tr>

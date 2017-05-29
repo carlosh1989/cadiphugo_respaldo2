@@ -90,7 +90,7 @@ $create = Integrantes::create([
 	'eliminar'		 => 0,
 ]);
 
-header("Location: integrantes_clap_busqueda.php?municipio=".$municipio."&parroquia=".$parroquia."&sector_id=".$sector->id."&zona_id=".$zona->id.""); 
+header("Location: integrantes_clap_busqueda_planilla.php?municipio=".$municipio."&parroquia=".$parroquia."&sector_id=".$sector->id."&zona_id=".$zona->id.""); 
 
 exit();
 ?>

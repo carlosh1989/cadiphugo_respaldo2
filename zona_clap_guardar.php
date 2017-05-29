@@ -14,10 +14,11 @@ extract($_POST);
 
 
 $create = ClapZona::create([
-	'sector_id'	 => $sector_id,
-	'nombre_clap'	 => $nombre_clap,
-	'cod_clap'		 => $cod_clap,
-	'cod_cadip'		 => $cod_cadip,
+	'sector_id'	    => $sector_id,
+	'nombre_clap'	=> $nombre_clap,
+	'subsector'	    => $subsector,	
+	'cod_clap'		=> $cod_clap,
+	'cod_cadip'		=> $cod_cadip,
 	'consolidado'	=> $consolidado,
 	'eliminar'		=> 0,
 	'comunidad' 	=> $comunidad,

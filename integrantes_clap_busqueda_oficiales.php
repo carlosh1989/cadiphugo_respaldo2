@@ -46,19 +46,20 @@ $zona  = ClapZona::where('id', $zona_id)->first();
         <a href="zona_clap_busqueda.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $sector_id ?>" class="fa fa-arrow-left fa-3x"></a>
       </div>
 
-      <h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Integrantes CLAPS</h4>
+      <h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Integrantes CLAPS Oficiales,<br> &nbsp; &nbsp; &nbsp; Según Caracas</h4>
       <hr>
     <pre><?php echo $muni->nombre_municipio; ?>, <?php echo $parro->nombre_parroquia; ?>, SECTOR: <?php echo $sector->sector ?>, COMUNIDAD: <?php echo $zona->comunidad ?> </pre>
     <hr>
     <form action="sector_guardar.php" method="GET">
       <input type="hidden" name="municipio" value="<?php echo $municipio ?>">
       <input type="hidden" name="parroquia" value="<?php echo $parroquia ?>">
+      <!--
       <div class="col-xs-2 col-md-2 col-sm-12 panel">
         <a href="integrantes_clap_create_consulta.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $sector_id ?>&zona_id=<?php echo $zona->id ?>&sector_id=<?php echo $sector->id ?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Integrante CLAP</a>
       </div>
-      <div class="col-xs-2 col-md-2 col-sm-12">
+       <div class="col-xs-2 col-md-2 col-sm-12">
              <a href="integrantes_clap_excel.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&id=<?php echo $sector_id ?>&zona_id=<?php echo $zona->id ?>&sector_id=<?php echo $sector->id ?>" class="btn btn-danger"><i class="fa fa-table"></i> Reporte EXCEL</a>
-      </div>
+      </div> -->
     </form>
     <hr>
     <table class="table">
@@ -90,11 +91,11 @@ $zona  = ClapZona::where('id', $zona_id)->first();
           <th>Cedula</th>
           <th>Responsable</th>
           <th>Teléfono</th>
-          <th align="center">editar</th>
-          <th align="center">eliminar</th>
+          <!-- <th align="center">editar</th>
+          <th align="center">eliminar</th> -->
         </tr>
       </thead>
-      <tbody>
+      <!-- <tbody>
         <?php foreach ($zona->integrantes_clap()->where('eliminar', '<', 1)->get() as $s): ?>
         <tr>
           <td><?php echo $s->id; ?></td>
@@ -135,16 +136,28 @@ $zona  = ClapZona::where('id', $zona_id)->first();
           <td><?php echo $s->tipo_r ?></td>
           <td><?php echo $s->cedula_r ?></td>
           <td><?php echo $s->responsable ?></td>
-          <td><?php echo $s->telefono_r ?></td>
+          <td><?php echo $s->telefono_r ?></td> 
           
-          <td><a class="btn btn-info text-success fa fa-pencil" href="integrantes_clap_editar.php?id_integrante=<?php echo $s->id ?>"></a></td>
-          <td><a onclick="return confirm('Esta seguro que quiere borrar Zona CLAP?')" class="btn btn-danger text-danger fa fa-times-circle" href="integrantes_clap_eliminar.php?zona_id=<?php echo $zona_id ?>&sector_id=<?php echo $sector_id ?>&parroquia=<?php echo $parroquia ?>&municipio=<?php echo $municipio ?>&integrante_id=<?php echo $s->id; ?>"></a></td>
+         <td><a class="btn btn-info text-success fa fa-pencil" href="integrantes_clap_editar.php?id_integrante=<?php echo $s->id ?>"></a></td> 
+          <td><a onclick="return confirm('Esta seguro que quiere borrar Zona CLAP?')" class="btn btn-danger text-danger fa fa-times-circle" href="integrantes_clap_eliminar.php?zona_id=<?php echo $zona_id ?>&sector_id=<?php echo $sector_id ?>&parroquia=<?php echo $parroquia ?>&municipio=<?php echo $municipio ?>&integrante_id=<?php echo $s->id; ?>"></a></td> 
         </tr>
         <?php endforeach ?>
       </tbody>
+      -->
     </table>
   </div>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////// 
+<body style="background-color:;"> </body>
+<br>
+<h1><center><u><em>O.D.A<br><br>OFICINA DE DESARROLLO ADMINISTRATIVO</em></u></center></h1>
+
+<IMG SRC="imagenes/cadip.jpeg"> 
+///////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- <br>
+<center><IMG SRC="imagenes/mantenimiento.jpg" WIDTH="800" HEIGHT="500"><center> -->

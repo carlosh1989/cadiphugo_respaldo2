@@ -298,7 +298,7 @@ $c_cargo = 0;
           <div class="pull-left">
             <a href="integrantes_clap_create_consulta.php?municipio=<?php echo $municipio ?>&parroquia=<?php echo $parroquia ?>&sector_id=<?php echo $sector->id ?>&zona_id=<?php echo $zona->id ?>" class="fa fa-arrow-left fa-3x"></a>
           </div>
-          <h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Integrantes CLAP</h4>
+          <h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Agregar Integrante CLAP <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Según Planilla Suministrada</h4>
           <br>
         <pre><?php echo $muni->nombre_municipio ?>, <?php echo $parro->nombre_parroquia ?>, SECTOR:  <?php echo $sector->sector ?>, COMUNIDAD: <?php echo $zona->comunidad ?></pre>
         <?php if($registrado == true): ?>

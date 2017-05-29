@@ -137,7 +137,10 @@ $(document).ready(function(){
    <input style="width: 100%;" name="nombre_clap" type="text" placeholder="Ingrese nombre de CLAP" onChange="javascript:this.value=this.value.toUpperCase();">
    <br>
    <br>
- <input style="width: 100%;" name="comunidad" type="text" placeholder="Comunidad" onChange="javascript:this.value=this.value.toUpperCase();">
+   <input style="width: 100%;" name="subsector" type="text" placeholder="Sub-Sector" onChange="javascript:this.value=this.value.toUpperCase();" required>
+   <br>
+   <br>
+ <input style="width: 100%;" name="comunidad" type="text" placeholder="Comunidad" onChange="javascript:this.value=this.value.toUpperCase();" required>
     <br>
    <br>
  <input style="width: 100%;" name="cod_clap" type="text" placeholder="Codigo de CLAP" onChange="javascript:this.value=this.value.toUpperCase();">
@@ -151,9 +154,6 @@ $(document).ready(function(){
    <br>
  <input style="width: 100%;" name="consolidado" type="text" placeholder="Consolidado" onChange="javascript:this.value=this.value.toUpperCase();">
  </div>
-
-
-
 		<hr>
 		  <button class="btn btn-success pull-right" type="submit">
 		  	Guardar <i class="fa fa-save"></i></button>

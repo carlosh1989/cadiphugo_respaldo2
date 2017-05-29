@@ -121,7 +121,7 @@ $(document).ready(function(){
 <div class="tab-content">
   <div role="tabpanel" class="tab-pane fade in active" id="jefe">
   	  <div class="col-xs-6 col-md-6 col-md-offset-3 col-sm-12 panel panel-default">
-		<h4 class="text-center text-muted"><a class="fa fa-map" href=""></a> Sectores</h4>
+		<h4 class="text-center text-muted"><a class="fa fa-map" href=""></a> Editar Sector</h4>
 		<form action="sector_editar_update.php" method="GET">
 <input type="hidden" name="id" value="<?php echo $id ?>">
  <div class="form-group">

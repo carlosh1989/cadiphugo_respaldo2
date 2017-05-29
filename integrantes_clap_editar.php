@@ -101,7 +101,7 @@ $integrante = Integrantes::where('id',$id_integrante)->first();
 					<div class="pull-left">
 						<a href="integrantes_clap_busqueda.php?municipio=<?php echo $integrante->sector->municipio->id_municipio ?>&parroquia=<?php echo $integrante->sector->parroquia->id_parrouia ?>&sector_id=<?php echo $integrante->sector->id ?>&zona_id=<?php echo $integrante->zona_id ?>" class="fa fa-arrow-left fa-3x"></a>
 					</div>
-					<h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Editar Integrante CLAP</h4>
+					<h4 class="text-center text-muted"><a class="fa fa-user-circle fa-2x" href=""></a> Editar Integrante CLAP <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp; Según Planilla Suministrada</h4>
 					<br>
 					<pre><?php echo $integrante->sector->municipio->nombre_municipio ?>, <?php echo $integrante->sector->parroquia->nombre_parroquia ?>, SECTOR: <?php echo $integrante->sector->sector ?></pre>
 				<form action="integrantes_clap_editar_guardar.php" method="POST	">

@@ -56,7 +56,7 @@ $zona = ClapZona::where('id',$id_zona)->first();
 		<div role="tabpanel" class="tab-pane fade in active" id="jefe">
 			<div class="col-xs-6 col-md-6 col-md-offset-3 col-sm-12 panel panel-default">
 				<div class="pull-left">
-					<a href="sector_busqueda.php?municipio=<?php echo $zona->sector->municipio->id_municipio ?>&parroquia=<?php echo $zona->sector->parroquia->id_parrouia ?>&id=<?php echo $zona->sector->id ?>" class="fa fa-arrow-left fa-3x"></a>
+					<a href="zona_clap_busqueda.php?municipio=<?php echo $zona->sector->municipio->id_municipio ?>&parroquia=<?php echo $zona->sector->parroquia->id_parrouia ?>&id=<?php echo $zona->sector->id ?>" class="fa fa-arrow-left fa-3x"></a>
 				</div>
 				<h4 class="text-center text-muted"><a class="fa fa-map-marker fa-2x" href=""></a> Sectores CLAP</h4>
 				<br>
@@ -67,7 +67,10 @@ $zona = ClapZona::where('id',$id_zona)->first();
 					<input style="width: 100%;" name="nombre_clap" type="text" value="<?php echo $zona->nombre_clap ?>" placeholder="Ingrese nombre de CLAP">
 					<br>
 					<br>
-					<input style="width: 100%;" name="comunidad" value="<?php echo $zona->comunidad ?>" type="text" placeholder="Comunidad">
+					<input style="width: 100%;" name="subsector" value="<?php echo $zona->subsector ?>" type="text" placeholder="Sub-Sector" onChange="javascript:this.value=this.value.toUpperCase();" required>
+				    <br>
+				    <br>
+					<input style="width: 100%;" name="comunidad" onChange="javascript:this.value=this.value.toUpperCase();" value="<?php echo $zona->comunidad ?>" type="text" placeholder="Comunidad" required>
 					<br>
 					<br>
 					<input style="width: 100%;" name="cod_clap" value="<?php echo $zona->cod_clap ?>" type="text" placeholder="Codigo de CLAP">

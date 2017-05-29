@@ -1,3 +1,4 @@
+
 <?php
 require __DIR__ . '/vendor/autoload.php';
 $whoops = new \Whoops\Run;
@@ -34,6 +35,7 @@ $array = Array (
         ),
 );
 
+/* //////////////////////////////////////////////////////////////////////////////////////////////////
 $Excel = array_merge($Excel,$array);
 
 $array = Array (
@@ -66,6 +68,7 @@ $array = Array (
 
         ),
 );
+///////////////////////////////////////////////////////////////////////////////////////////////// */
 
 $Excel = array_merge($Excel,$array);
 
@@ -75,13 +78,15 @@ $array = Array (
         ),
 );
 
+  $bodeg = $zona->integrantes_clap()->where('eliminar', '<', 1)->first()->razon_social.'('.$zona->integrantes_clap()->where('eliminar', '<', 1)->first()->cod_bodega.')';
 $array = Array (
         0 => Array (
-          "Bodega",
-          $zona->bodega->rason_social,
+          "Nombre de la Bodega",
+          $bodeg,
         ),
 );
 
+/* /////////////////////////////////////////////////////////////////////////////////////////////////
 $Excel = array_merge($Excel,$array);
 
 $array = Array (
@@ -98,6 +103,21 @@ $array = Array (
           $zona->bodega->responsable,
           "Cedula: ".$cedula_int,          
           "Teléfono: ".$zona->integrantes_clap()->where('eliminar', '<', 1)->first()->telefono_r,
+        ),
+);
+///////////////////////////////////////////////////////////////////////////////////////////////// */
+$Excel = array_merge($Excel,$array);
+
+$array = Array (
+        0 => Array (
+          "", 
+        ),
+);
+
+$array = Array (  
+        0 => Array (
+          "Responsable de la Bodega",
+          $zona->bodega->responsable,
         ),
 );
 
@@ -149,6 +169,21 @@ $array = Array (
 
 $Excel = array_merge($Excel,$array);
 
+$array = Array (
+        0 => Array (
+          "", 
+        ),
+);
+
+$array = Array (
+        0 => Array (
+          "Sub-Sector",
+          $zona->subsector,
+        ),
+);
+
+$Excel = array_merge($Excel,$array);
+
 
 $array = Array (
         0 => Array (
@@ -172,10 +207,19 @@ $array = Array (
         ),
 );
 
+       
+if($zona->consolidado == true)
+    {
+    $consolidado = "CLAP Consolidado";
+    }
+  else
+      {
+      $consolidado = "CLAP NO Consolidado";
+      }        
 $array = Array (
         0 => Array (
-          "Consolidado",
-          $zona->consolidado,
+          "¿Esta Consolidado?",
+          $consolidado,
         ),
 );
 
@@ -197,12 +241,13 @@ $array = Array (
 
 $array = Array (
         0 => Array (
-          "Id",
-          "Tipo",
+          // "Id",
+          // "Tipo",
+          "Cargo CLAP",
           "Cedula",          
           "Nombre y Apellido",
           "Teléfono",          
-          "Municipio",
+          /*"Municipio",
           "Parroquia", 
           "¿Existe CADIP?",
           "Código CADIP",
@@ -211,7 +256,8 @@ $array = Array (
           "Cargo CLAP",
           "¿Coincide Cargo CLAP?",
           "¿Coincide Municipio CLAP - CADIP?",
-          "¿Coincide Parroquia CLAP - CADIP?",
+          "¿Coincide Parroquia CLAP - CADIP?",*/
+          "Observaciones",
         ),
 );
 
@@ -280,12 +326,13 @@ foreach ($zona->integrantes_clap()->where('eliminar', '<', 1)->get() as $key => 
 
   $array = Array (
           0 => Array (
-          $int->id,
-          $int->tipo_c,
+          // $int->id,
+          // $int->tipo_c,
+          $int->cargo->cargo,                    
           $int->cedula,          
           $int->nombre_a,
           $int->telefono,          
-          $int->intmunicipio->nombre_municipio,
+          /*$int->intmunicipio->nombre_municipio,
           $int->intparroquia->nombre_parroquia,   
           $e_cadip,
           $zona->cod_cadip, 
@@ -294,7 +341,8 @@ foreach ($zona->integrantes_clap()->where('eliminar', '<', 1)->get() as $key => 
           $int->cargo->cargo,
           $c_cargo,
           $c_municipio,
-          $c_parroquia,         
+          $c_parroquia,*/  
+          
 
           ),
   );

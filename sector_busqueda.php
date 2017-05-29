@@ -48,7 +48,7 @@ $sector  = Sector::where('id_municipio', $municipio)->where('id_parroquia',$parr
 <div class="col-xs-6 col-md-6 col-md-offset-3 col-sm-12 panel panel-default">
 <div class="pull-left">
 	<a href="sector_form.php" class="fa fa-home fa-3x"></a>
-</div>	<h4 class="text-center text-muted"><a class="fa fa-map fa-2x" href=""></a> Sector</h4>
+</div>	<h4 class="text-center text-muted"><a class="fa fa-map fa-2x" href=""></a> Sectores CLAP</h4>
 <hr>
 <pre><?php echo $muni->nombre_municipio; ?>, <?php echo $parro->nombre_parroquia; ?></pre>
 <hr>
@@ -69,8 +69,8 @@ $sector  = Sector::where('id_municipio', $municipio)->where('id_parroquia',$parr
         <th>id</th>
         <th>Sector CLAP</th>
         <th>Zona CLAPS</th>
-        <th align="center">editar</th>
-        <th align="center">eliminar</th>
+        <th align="center">Editar</th>
+        <th align="center">Eliminar</th>
       </tr>
     </thead>
     <tbody>

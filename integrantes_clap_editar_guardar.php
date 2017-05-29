@@ -49,6 +49,6 @@ $datos = array(
 $integrante = Integrantes::find($integrante_id)->update($datos);
 
 //Krumo::dump($datos);
-header("Location: integrantes_clap_busqueda.php?municipio=".$municipio."&parroquia=".$parroquia."&sector_id=".$sector_id."&zona_id=".$zona_id.""); /* Redirect browser */
+header("Location: integrantes_clap_busqueda_planilla.php?municipio=".$municipio."&parroquia=".$parroquia."&sector_id=".$sector_id."&zona_id=".$zona_id.""); /* Redirect browser */
 exit();
 ?>
